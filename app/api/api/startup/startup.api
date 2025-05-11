@@ -1,0 +1,25 @@
+syntax = "v1"
+
+@server(
+    group: metaLand/startup
+    prefix: api/startup
+    middleware: OIDCAuthMiddleware
+)
+
+service metaLand {
+    @doc "查询项目列表"
+    @handler ListStartups
+    get /startups  (ListStartupsRequest) returns (ListResponse)
+}
+
+
+type (
+    ListStartupsRequest {
+        Page int `json:"page"`
+        Size int `json:"size"`
+    }
+
+    ListResponse {
+
+    }
+)
