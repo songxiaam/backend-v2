@@ -1,0 +1,10 @@
+Name: metaLand
+Host: 0.0.0.0
+Port: 8888
+
+DB:
+  DataSource: "metaLand:ekZinLn5xPDPjmTz@tcp(45.249.209.63:3306)/metaland"
+
+AUTH:
+  AccessSecret: "123123"
+  AccessExpire: 86400
