@@ -3,13 +3,8 @@ syntax = "proto3";
 package pb;
 option go_package = "../pb";
 
-import "google/protobuf/struct.proto";
-
 service MetaLandWorker {
   rpc TriggerUCETask(TriggerUCETaskRequest) returns (TriggerUCETaskResponse);
-  rpc GetUCESchemas(GetUCESchemasRequest) returns (GetUCESchemasResponse);
-  rpc PreTestRule(PreTestRuleRequest) returns (PreTestRuleResponse);
-  rpc SyncWeworkContact(SyncWeworkContactRequest) returns (SyncWeworkContactResponse);
 }
 
 message TriggerUCETaskRequest {
@@ -17,45 +12,5 @@ message TriggerUCETaskRequest {
 }
 
 message TriggerUCETaskResponse {
-  string status = 1;
-}
-
-message UCESchemaField {
-  string name = 1;
-  string label = 2;
-  string type = 3;
-  repeated string operations = 4;
-}
-
-message UCESchema {
-  string name = 1;
-  string label = 2;
-  repeated UCESchemaField fields = 3;
-}
-
-message GetUCESchemasRequest {
-
-}
-
-message GetUCESchemasResponse {
-  repeated UCESchema schemas = 1;
-}
-
-message PreTestRuleRequest {
-  google.protobuf.Struct data = 2;
-}
-
-message PreTestRuleResponse {
-  string status = 1;
-  int64 count = 2;
-}
-
-message SyncWeworkContactRequest {
-  string unionId = 1;
-  string externalUserId = 2;
-  int64 socialAppId = 3;
-}
-
-message SyncWeworkContactResponse {
   string status = 1;
 }
