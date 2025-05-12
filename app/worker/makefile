@@ -21,7 +21,7 @@ endif
 ifndef CHECK_GOCTL
 	$(error "goctl is not available, please install it")
 endif
-	$(GOCTL) rpc protoc ./pb/meta_land_worker.proto --go_out=./pb --go-grpc_out=./pb --zrpc_out=. --client=false
+	$(GOCTL) rpc protoc ./pb/meta_land_worker.proto --go_out=./pb --go-grpc_out=./pb --zrpc_out=.
 
 # 清理生成的文件
 clean:

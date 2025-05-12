@@ -36,6 +36,5 @@ func (l *ListStartupsLogic) ListStartups(req *types.ListStartupsRequest) (resp *
 		List:  r,
 		Total: t,
 	}
-
 	return
 }
