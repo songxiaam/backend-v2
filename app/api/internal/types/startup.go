@@ -13,5 +13,5 @@ type ListStartupsRequest struct {
 
 type ListStartupsResponse struct {
 	List  []*Startup `json:list`
-	Total int        `json: total`
+	Total int64      `json: total`
 }
