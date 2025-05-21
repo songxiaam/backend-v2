@@ -3,12 +3,12 @@ package startup
 import (
 	"database/sql"
 	"gorm.io/datatypes"
-	"gorm.io/gorm"
+	"metaLand/data/model"
 	"metaLand/data/model/tag"
 )
 
 type Startup struct {
-	gorm.Model
+	model.Base
 	ComerID              uint64    `gorm:"comer_id" json:"comerID"`
 	Name                 string    `gorm:"name" json:"name"`
 	Mode                 uint8     `gorm:"mode" json:"mode"`

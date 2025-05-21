@@ -3,7 +3,6 @@ package main
 import (
 	"flag"
 	"fmt"
-
 	"metaLand/app/worker/internal/config"
 	"metaLand/app/worker/internal/server"
 	"metaLand/app/worker/internal/svc"

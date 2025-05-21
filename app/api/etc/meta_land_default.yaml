@@ -5,6 +5,9 @@ Port: 8888
 DB:
   DataSource: ""
 
-Auth:
-  AccessSecret: "123123"
-  AccessExpire: 300
+JWT:
+  Secret: "123123"
+  Expired: 300
+
+Minio:
+  Bucket: ""

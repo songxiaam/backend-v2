@@ -1,7 +1,7 @@
 package tag
 
 import (
-	"gorm.io/gorm"
+	"metaLand/data/model"
 )
 
 type Category string
@@ -14,7 +14,7 @@ const (
 
 // Tag  Comunion tag for startup bounty profile and other position need Tag.
 type Tag struct {
-	gorm.Model
+	model.Base
 	Name     string   `gorm:"column:name" json:"name"`
 	Category Category `gorm:"column:category" json:"category"`
 	IsIndex  bool     `gorm:"column:is_index" json:"isIndex"`
@@ -27,7 +27,7 @@ func (Tag) TableName() string {
 
 // TagTargetRel  Comunion tag for startup bounty profile and other position need TagTargetRel.
 type TagTargetRel struct {
-	gorm.Model
+	model.RelationBase
 	TargetID uint64   `column:"target_id"`
 	Target   Category `column:"target"`
 	TagID    uint64   `column:"tag_id"`
