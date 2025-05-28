@@ -26,7 +26,7 @@ func NewUpdateComerLanguagesLogic(ctx context.Context, svcCtx *svc.ServiceContex
 	}
 }
 
-func (l *UpdateComerLanguagesLogic) UpdateComerLanguages(req *types.UpdateComerLanguagesRequest) (resp *types.MessageResponse, err error) {
+func (l *UpdateComerLanguagesLogic) UpdateComerLanguages(req *types.UpdateComerLanguagesRequest) (resp *types.ComerMessageResponse, err error) {
 	comerLanguage := comerlanguage.ComerLanguage{
 		Base: model.Base{
 			ID: uint64(req.ComerLanguageId),
@@ -42,7 +42,7 @@ func (l *UpdateComerLanguagesLogic) UpdateComerLanguages(req *types.UpdateComerL
 		return nil, err
 	}
 
-	return &types.MessageResponse{
+	return &types.ComerMessageResponse{
 		Message: "success",
 	}, nil
 }

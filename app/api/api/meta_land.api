@@ -2,3 +2,4 @@ syntax = "v1"
 
 import "startup/startup.api"
 import "user/user_service.api"
+import "chain/chain_service.api"

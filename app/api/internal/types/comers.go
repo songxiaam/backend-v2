@@ -17,6 +17,37 @@ type ComerBasicResponse struct {
 	TimeZone       string `json:"time_zone"`
 }
 
+type ComersInfoDetailResponse struct {
+	Accounts       []ComerAccountResponse      `json:"accounts"`
+	Activation     bool                        `json:"activation"`
+	Address        string                      `json:"address"`
+	Avatar         string                      `json:"avatar"`
+	Banner         string                      `json:"banner"`
+	ConnectedTotal ComerConnectedTotalResponse `json:"connected_total"`
+	CustomDomain   string                      `json:"custom_domain"`
+	Educations     []ComerEducationResponse    `json:"educations"`
+	Id             int                         `json:"id"`
+	Info           ComerInfo                   `json:"info"`
+	InvitationCode string                      `json:"invitation_code"`
+	IsConnected    bool                        `json:"is_connected"`
+	Languages      []ComerLanguageResponse     `json:"languages"`
+	Location       string                      `json:"location"`
+	Name           string                      `json:"name"`
+	Skills         []ComerSkillResponse        `json:"skills"`
+	Socials        []ComerSocialResponse       `json:"socials"`
+	TimeZone       string                      `json:"time_zone"`
+}
+
+type ComersMessageResponse struct {
+	Message string `json:"message"`
+}
+
+type ComersPageData struct {
+	List  []interface{} `json:"list"`
+	Page  int           `json:"page"`
+	Size  int           `json:"size"`
+	Total int           `json:"total"`
+}
 
 type ConnectComerRequest struct {
 	ComerId int64 `path:"comer_id" binding:"required"`

@@ -24,7 +24,7 @@ func NewGetComerConnectComersByComerIdLogic(ctx context.Context, svcCtx *svc.Ser
 	}
 }
 
-func (l *GetComerConnectComersByComerIdLogic) GetComerConnectComersByComerId(req *types.GetComerConnectComersByComerIdRequest) (resp *types.PageData, err error) {
+func (l *GetComerConnectComersByComerIdLogic) GetComerConnectComersByComerId(req *types.GetComerConnectComersByComerIdRequest) (resp *types.ComersPageData, err error) {
 	// todo: add your logic here and delete this line
 
 	return

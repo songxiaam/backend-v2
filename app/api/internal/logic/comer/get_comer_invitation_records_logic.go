@@ -26,7 +26,7 @@ func NewGetComerInvitationRecordsLogic(ctx context.Context, svcCtx *svc.ServiceC
 	}
 }
 
-func (l *GetComerInvitationRecordsLogic) GetComerInvitationRecords() (resp *types.PageData, err error) {
+func (l *GetComerInvitationRecordsLogic) GetComerInvitationRecords() (resp *types.ComerPageData, err error) {
 	comerInfo, ok := l.ctx.Value("comerInfo").(*comer.Comer)
 	if !ok {
 		return nil, errors.New("user not found")
@@ -34,7 +34,7 @@ func (l *GetComerInvitationRecordsLogic) GetComerInvitationRecords() (resp *type
 
 	logx.Infof("comerInfo: %+v", comerInfo)
 
-	return &types.PageData{
+	return &types.ComerPageData{
 		Page:  1,
 		Size:  10,
 		Total: 0,

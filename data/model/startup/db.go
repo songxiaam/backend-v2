@@ -26,3 +26,13 @@ func ListStartups(db *gorm.DB, comerID uint64, input *ListStartupRequest, startu
 	err = db.Order("created_at DESC").Limit(input.Limit).Offset(input.Offset).Preload("Wallets").Preload("HashTags", "category = ?", tag.Startup).Preload("Members").Preload("Members.Comer").Preload("Members.ComerProfile").Preload("Follows").Find(startups).Error
 	return
 }
+
+func StartupOnChain(db *gorm.DB, txHash string, chainID uint64, comerID uint64) (err error) {
+	return db.Where(Startup{
+		TxHash:  txHash,
+		ChainID: chainID,
+		ComerID: comerID,
+	}).Where("on_chain", false).Updates(Startup{
+		OnChain: true,
+	}).Error
+}

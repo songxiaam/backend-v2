@@ -25,13 +25,13 @@ func NewUnbindComerLanguagesLogic(ctx context.Context, svcCtx *svc.ServiceContex
 	}
 }
 
-func (l *UnbindComerLanguagesLogic) UnbindComerLanguages(req *types.UnbindComerLanguagesRequest) (resp *types.MessageResponse, err error) {
+func (l *UnbindComerLanguagesLogic) UnbindComerLanguages(req *types.UnbindComerLanguagesRequest) (resp *types.ComerMessageResponse, err error) {
 	err = comerlanguage.DeleteComerLanguage(l.svcCtx.DB, uint64(req.ComerLanguageId))
 	if err != nil {
 		return nil, err
 	}
 
-	return &types.MessageResponse{
+	return &types.ComerMessageResponse{
 		Message: "success",
 	}, nil
 }

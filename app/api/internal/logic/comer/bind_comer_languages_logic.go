@@ -28,7 +28,7 @@ func NewBindComerLanguagesLogic(ctx context.Context, svcCtx *svc.ServiceContext)
 	}
 }
 
-func (l *BindComerLanguagesLogic) BindComerLanguages(req *types.BindComerLanguagesRequest) (resp *types.MessageResponse, err error) {
+func (l *BindComerLanguagesLogic) BindComerLanguages(req *types.BindComerLanguagesRequest) (resp *types.ComerMessageResponse, err error) {
 	comerInfo, ok := l.ctx.Value("comerInfo").(*comer.Comer)
 	if !ok {
 		return nil, errors.New("user not found")
@@ -47,7 +47,7 @@ func (l *BindComerLanguagesLogic) BindComerLanguages(req *types.BindComerLanguag
 		return nil, err
 	}
 
-	return &types.MessageResponse{
+	return &types.ComerMessageResponse{
 		Message: fmt.Sprintf("success, id: %d", id),
 	}, nil
 

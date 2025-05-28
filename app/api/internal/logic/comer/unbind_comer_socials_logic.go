@@ -25,12 +25,12 @@ func NewUnbindComerSocialsLogic(ctx context.Context, svcCtx *svc.ServiceContext)
 	}
 }
 
-func (l *UnbindComerSocialsLogic) UnbindComerSocials(req *types.UnbindComerSocialsRequest) (resp *types.MessageResponse, err error) {
+func (l *UnbindComerSocialsLogic) UnbindComerSocials(req *types.UnbindComerSocialsRequest) (resp *types.ComerMessageResponse, err error) {
 	err = comersocial.DeleteComerSocial(l.svcCtx.DB, uint64(req.ComerSocialId))
 	if err != nil {
 		return nil, err
 	}
-	return &types.MessageResponse{
+	return &types.ComerMessageResponse{
 		Message: "success",
 	}, nil
 }

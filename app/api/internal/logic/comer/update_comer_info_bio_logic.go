@@ -27,7 +27,7 @@ func NewUpdateComerInfoBioLogic(ctx context.Context, svcCtx *svc.ServiceContext)
 	}
 }
 
-func (l *UpdateComerInfoBioLogic) UpdateComerInfoBio(req *types.UpdateComerInfoBioRequest) (resp *types.MessageResponse, err error) {
+func (l *UpdateComerInfoBioLogic) UpdateComerInfoBio(req *types.UpdateComerInfoBioRequest) (resp *types.ComerMessageResponse, err error) {
 	comerInfo, ok := l.ctx.Value("comerInfo").(*comer.Comer)
 	if !ok {
 		return nil, errors.New("user not found")
@@ -39,7 +39,7 @@ func (l *UpdateComerInfoBioLogic) UpdateComerInfoBio(req *types.UpdateComerInfoB
 	if err != nil {
 		return nil, err
 	}
-	return &types.MessageResponse{
+	return &types.ComerMessageResponse{
 		Message: "success",
 	}, nil
 }

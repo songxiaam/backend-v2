@@ -28,7 +28,7 @@ func NewBindComerSkillsLogic(ctx context.Context, svcCtx *svc.ServiceContext) *B
 	}
 }
 
-func (l *BindComerSkillsLogic) BindComerSkills(req *types.BindComerSkillsRequest) (resp *types.MessageResponse, err error) {
+func (l *BindComerSkillsLogic) BindComerSkills(req *types.BindComerSkillsRequest) (resp *types.ComerMessageResponse, err error) {
 	// todo: add your logic here and delete this line
 	comerInfo, ok := l.ctx.Value("comerInfo").(*comer.Comer)
 	if !ok {
@@ -46,7 +46,7 @@ func (l *BindComerSkillsLogic) BindComerSkills(req *types.BindComerSkillsRequest
 	if err != nil {
 		return nil, err
 	}
-	return &types.MessageResponse{
+	return &types.ComerMessageResponse{
 		Message: fmt.Sprintf("success, id: %d", id),
 	}, nil
 }

@@ -26,7 +26,7 @@ func NewUpdateComerSkillsLogic(ctx context.Context, svcCtx *svc.ServiceContext) 
 	}
 }
 
-func (l *UpdateComerSkillsLogic) UpdateComerSkills(req *types.UpdateComerSkillsRequest) (resp *types.MessageResponse, err error) {
+func (l *UpdateComerSkillsLogic) UpdateComerSkills(req *types.UpdateComerSkillsRequest) (resp *types.ComerMessageResponse, err error) {
 	// todo: add your logic here and delete this line
 	comerSkill := comerskill.ComerSkill{
 		Base: model.Base{
@@ -43,7 +43,7 @@ func (l *UpdateComerSkillsLogic) UpdateComerSkills(req *types.UpdateComerSkillsR
 		return nil, err
 	}
 
-	return &types.MessageResponse{
+	return &types.ComerMessageResponse{
 		Message: "success",
 	}, nil
 }

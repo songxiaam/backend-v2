@@ -24,7 +24,7 @@ func NewUnconnectComerLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Un
 	}
 }
 
-func (l *UnconnectComerLogic) UnconnectComer(req *types.UnconnectComerRequest) (resp *types.MessageResponse, err error) {
+func (l *UnconnectComerLogic) UnconnectComer(req *types.UnconnectComerRequest) (resp *types.ComersMessageResponse, err error) {
 	// todo: add your logic here and delete this line
 
 	return

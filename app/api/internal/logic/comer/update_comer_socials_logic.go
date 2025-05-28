@@ -26,7 +26,7 @@ func NewUpdateComerSocialsLogic(ctx context.Context, svcCtx *svc.ServiceContext)
 	}
 }
 
-func (l *UpdateComerSocialsLogic) UpdateComerSocials(req *types.UpdateComerSocialsRequest) (resp *types.MessageResponse, err error) {
+func (l *UpdateComerSocialsLogic) UpdateComerSocials(req *types.UpdateComerSocialsRequest) (resp *types.ComerMessageResponse, err error) {
 	comerSocial := comersocial.ComerSocial{
 		Base: model.Base{
 			ID: uint64(req.ComerSocialId),
@@ -41,7 +41,7 @@ func (l *UpdateComerSocialsLogic) UpdateComerSocials(req *types.UpdateComerSocia
 	if err != nil {
 		return nil, err
 	}
-	return &types.MessageResponse{
+	return &types.ComerMessageResponse{
 		Message: "success",
 	}, nil
 }

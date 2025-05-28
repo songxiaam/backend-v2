@@ -64,6 +64,17 @@ type ComerInvitationCountResponse struct {
 	InactiveTotal  int `json:"inactive_total"`
 }
 
+type ComerMessageResponse struct {
+	Message string `json:"message"`
+}
+
+type ComerPageData struct {
+	List  []interface{} `json:"list"`
+	Page  int           `json:"page"`
+	Size  int           `json:"size"`
+	Total int           `json:"total"`
+}
+
 type ComerResponse struct {
 	Activation     bool   `json:"activation"`
 	Address        string `json:"address"`
@@ -77,17 +88,6 @@ type ComerResponse struct {
 	Location       string `json:"location"`
 	Name           string `json:"name"`
 	TimeZone       string `json:"time_zone"`
-}
-
-type MessageResponse struct {
-	Message string `json:"message"`
-}
-
-type PageData struct {
-	List  []interface{} `json:"list"`
-	Page  int           `json:"page"`
-	Size  int           `json:"size"`
-	Total int           `json:"total"`
 }
 
 type StartupListResponse struct {

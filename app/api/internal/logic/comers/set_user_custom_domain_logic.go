@@ -24,7 +24,7 @@ func NewSetUserCustomDomainLogic(ctx context.Context, svcCtx *svc.ServiceContext
 	}
 }
 
-func (l *SetUserCustomDomainLogic) SetUserCustomDomain(req *types.SetUserCustomDomainRequest) (resp *types.MessageResponse, err error) {
+func (l *SetUserCustomDomainLogic) SetUserCustomDomain(req *types.SetUserCustomDomainRequest) (resp *types.ComersMessageResponse, err error) {
 	// todo: add your logic here and delete this line
 
 	return

@@ -3,7 +3,7 @@ Host: 0.0.0.0
 Port: 8888
 
 DB:
-  DataSource: "root:st123456@tcp(127.0.0.1:3306)/metaland?charset=utf8mb4&parseTime=True&loc=Local"
+  DataSource: ""
 
 JWT:
   Secret: "123123"
@@ -13,6 +13,6 @@ Minio:
   Bucket: ""
 
 Redis:
-Host: ""
-Password: ""
-DB: 0  
+  Host: ""
+  Password: ""
+  DB: 0

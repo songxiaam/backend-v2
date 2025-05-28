@@ -28,7 +28,7 @@ func NewBindComerEducationsLogic(ctx context.Context, svcCtx *svc.ServiceContext
 	}
 }
 
-func (l *BindComerEducationsLogic) BindComerEducations(req *types.BindComerEducationsRequest) (resp *types.MessageResponse, err error) {
+func (l *BindComerEducationsLogic) BindComerEducations(req *types.BindComerEducationsRequest) (resp *types.ComerMessageResponse, err error) {
 	comerInfo, ok := l.ctx.Value("comerInfo").(*comer.Comer)
 	if !ok {
 		return nil, errors.New("user not found")
@@ -48,7 +48,7 @@ func (l *BindComerEducationsLogic) BindComerEducations(req *types.BindComerEduca
 	if err != nil {
 		return nil, err
 	}
-	return &types.MessageResponse{
+	return &types.ComerMessageResponse{
 		Message: fmt.Sprintf("%d", id),
 	}, nil
 }

@@ -2,6 +2,7 @@ package startup
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"github.com/ethereum/go-ethereum"
 	ethCommon "github.com/ethereum/go-ethereum/common"
@@ -12,6 +13,8 @@ import (
 	"math/big"
 	"metaLand/app/sync/service/common"
 	chainModel "metaLand/data/model/chain"
+	comerModel "metaLand/data/model/comer"
+	"metaLand/data/model/startup"
 	"time"
 )
 
@@ -24,19 +27,33 @@ func NewTaskStartup(ctx *common.ServiceContext) *TaskStartup {
 	return &TaskStartup{ctx: ctx, info: make(map[uint64]*ContractInfo)}
 }
 
-func (t *TaskStartup) HandleCreateEvent(params []any) {
-	name := params[0].(string)
-	profile := params[1].(struct {
-		Name       string `json:"name"`
-		Mode       uint8  `json:"mode"`
-		Logo       string `json:"logo"`
-		Mission    string `json:"mission"`
-		Overview   string `json:"overview"`
-		IsValidate bool   `json:"isValidate"`
-	})
-	comer := params[2].(ethCommon.Address)
-	logx.Info(name, comer)
-	logx.Info(profile)
+// HandleCreateEvent
+// event created(string name, Profile startUp, address msg)
+func (t *TaskStartup) HandleCreateEvent(params []any, chainId uint64) {
+	// name := params[0].(string)
+	// profile := params[1].(struct {
+	// 	Name       string `json:"name"`
+	// 	Mode       uint8  `json:"mode"`
+	// 	Logo       string `json:"logo"`
+	// 	Mission    string `json:"mission"`
+	// 	Overview   string `json:"overview"`
+	// 	IsValidate bool   `json:"isValidate"`
+	// })
+
+	// logx.Debug(name, comer)
+	// logx.Debug(profile)
+
+	comer, err := comerModel.FindComerByAddress(t.ctx.DB, params[2].(string))
+	if err != nil {
+		logx.Error(err)
+		return
+	}
+
+	ci := t.info[chainId]
+	err = startup.StartupOnChain(t.ctx.DB, ci.CreatedHash, chainId, comer.ID)
+	if err != nil {
+		logx.Error(err)
+	}
 }
 
 func (t *TaskStartup) queryLogs() {
@@ -53,7 +70,7 @@ func (t *TaskStartup) queryLogs() {
 		}
 
 		lastHeigh, err := t.ctx.Redis.Get(ctx, common.GetKey(chainID, info.Address)).Uint64()
-		if err != nil && err != redis.Nil {
+		if err != nil && !errors.Is(err, redis.Nil) {
 			logx.Info(err)
 			continue
 		}
@@ -86,7 +103,7 @@ func (t *TaskStartup) queryLogs() {
 		}
 
 		for {
-			logx.Info(fmt.Sprintf("start: %d end: %d current: %d", startBlock.Int64(), endBlock.Int64(), currentHeight))
+			logx.Debug(fmt.Sprintf("start: %d end: %d current: %d", startBlock.Int64(), endBlock.Int64(), currentHeight))
 
 			logs, err := info.Client.FilterLogs(ctx, ethereum.FilterQuery{
 				FromBlock: startBlock,
@@ -108,7 +125,7 @@ func (t *TaskStartup) queryLogs() {
 						continue
 					}
 
-					t.HandleCreateEvent(params)
+					t.HandleCreateEvent(params, chainID)
 				default:
 					logx.Info(l.Topics[0])
 				}

@@ -25,12 +25,12 @@ func NewUnbindComerEducationsLogic(ctx context.Context, svcCtx *svc.ServiceConte
 	}
 }
 
-func (l *UnbindComerEducationsLogic) UnbindComerEducations(req *types.UnbindComerEducationsRequest) (resp *types.MessageResponse, err error) {
+func (l *UnbindComerEducationsLogic) UnbindComerEducations(req *types.UnbindComerEducationsRequest) (resp *types.ComerMessageResponse, err error) {
 	err = comereducation.DeleteComerEducation(l.svcCtx.DB, uint64(req.ComerEducationId))
 	if err != nil {
 		return nil, err
 	}
-	return &types.MessageResponse{
+	return &types.ComerMessageResponse{
 		Message: "success",
 	}, nil
 }

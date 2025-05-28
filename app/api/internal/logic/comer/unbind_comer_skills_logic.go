@@ -25,12 +25,12 @@ func NewUnbindComerSkillsLogic(ctx context.Context, svcCtx *svc.ServiceContext) 
 	}
 }
 
-func (l *UnbindComerSkillsLogic) UnbindComerSkills(req *types.UnbindComerSkillsRequest) (resp *types.MessageResponse, err error) {
+func (l *UnbindComerSkillsLogic) UnbindComerSkills(req *types.UnbindComerSkillsRequest) (resp *types.ComerMessageResponse, err error) {
 	err = comerskill.DeleteComerSkill(l.svcCtx.DB, uint64(req.ComerSkillId))
 	if err != nil {
 		return nil, err
 	}
-	return &types.MessageResponse{
+	return &types.ComerMessageResponse{
 		Message: "success",
 	}, nil
 }

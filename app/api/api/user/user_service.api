@@ -16,15 +16,15 @@ service metaLand {
 
     @doc "更新用户信息"
     @handler UpdateComerInfo
-    put / (UpdateComerInfoRequest) returns (MessageResponse)
+    put / (UpdateComerInfoRequest) returns (ComerMessageResponse)
 
     @doc "解绑用户账号"
     @handler UnlinkOauthByComerAccountId
-    delete /accounts/:comer_account_id (UnlinkOauthByComerAccountIdRequest) returns (MessageResponse)
+    delete /accounts/:comer_account_id (UnlinkOauthByComerAccountIdRequest) returns (ComerMessageResponse)
 
     @doc "更新用户简介"
     @handler UpdateComerInfoBio
-    put /bio (UpdateComerInfoBioRequest) returns (MessageResponse)
+    put /bio (UpdateComerInfoBioRequest) returns (ComerMessageResponse)
 
     @doc "获取用户详情"
     @handler GetComerInfoDetail
@@ -32,15 +32,15 @@ service metaLand {
 
     @doc "绑定用户教育经历"
     @handler BindComerEducations
-    put /educations (BindComerEducationsRequest) returns (MessageResponse)
+    put /educations (BindComerEducationsRequest) returns (ComerMessageResponse)
 
     @doc "更新用户教育经历"
     @handler UpdateComerEducation
-    post /educations (UpdateComerEducationRequest) returns (MessageResponse)
+    post /educations (UpdateComerEducationRequest) returns (ComerMessageResponse)
 
     @doc "解绑用户教育经历"
     @handler UnbindComerEducations
-    delete /educations/:comer_education_id (UnbindComerEducationsRequest) returns (MessageResponse)
+    delete /educations/:comer_education_id (UnbindComerEducationsRequest) returns (ComerMessageResponse)
 
     @doc "获取用户邀请人数"
     @handler GetComerInvitationCount
@@ -48,19 +48,19 @@ service metaLand {
 
     @doc "获取用户邀请记录"
     @handler GetComerInvitationRecords
-    get /invitation-records returns (PageData)
+    get /invitation-records returns (ComerPageData)
 
     @doc "绑定用户语言"
     @handler BindComerLanguages
-    put /languages (BindComerLanguagesRequest) returns (MessageResponse)
+    put /languages (BindComerLanguagesRequest) returns (ComerMessageResponse)
 
     @doc "更新用户语言"
     @handler UpdateComerLanguages
-    post /languages/:comer_language_id (UpdateComerLanguagesRequest) returns (MessageResponse)
+    post /languages/:comer_language_id (UpdateComerLanguagesRequest) returns (ComerMessageResponse)
 
     @doc "解绑用户语言"
     @handler UnbindComerLanguages
-    delete /languages/:comer_language_id (UnbindComerLanguagesRequest) returns (MessageResponse)
+    delete /languages/:comer_language_id (UnbindComerLanguagesRequest) returns (ComerMessageResponse)
 
     @doc "获取用户加入和关注的创业公司"
     @handler GetComerJoinedAndFollowedStartups
@@ -68,27 +68,27 @@ service metaLand {
 
     @doc "绑定用户技能"
     @handler BindComerSkills
-    put /skills (BindComerSkillsRequest) returns (MessageResponse)
+    put /skills (BindComerSkillsRequest) returns (ComerMessageResponse)
 
     @doc "更新用户技能"
     @handler UpdateComerSkills
-    post /skills (UpdateComerSkillsRequest) returns (MessageResponse)
+    post /skills (UpdateComerSkillsRequest) returns (ComerMessageResponse)
 
     @doc "解绑用户技能"
     @handler UnbindComerSkills
-    delete /skills/:comer_skill_id (UnbindComerSkillsRequest) returns (MessageResponse)
+    delete /skills/:comer_skill_id (UnbindComerSkillsRequest) returns (ComerMessageResponse)
 
     @doc "绑定用户社交"
     @handler BindComerSocials
-    put /socials (BindComerSocialsRequest) returns (MessageResponse)
+    put /socials (BindComerSocialsRequest) returns (ComerMessageResponse)
 
     @doc "更新用户社交"
     @handler UpdateComerSocials
-    post /socials (UpdateComerSocialsRequest) returns (MessageResponse)
+    post /socials (UpdateComerSocialsRequest) returns (ComerMessageResponse)
 
     @doc "解绑用户社交"
     @handler UnbindComerSocials
-    delete /socials/:comer_social_id (UnbindComerSocialsRequest) returns (MessageResponse)
+    delete /socials/:comer_social_id (UnbindComerSocialsRequest) returns (ComerMessageResponse)
 }
 
 @server(
@@ -101,7 +101,7 @@ service metaLand {
 
     @doc "设置用户自定义域名"
     @handler SetUserCustomDomain
-    put /domains/:custom_domain (SetUserCustomDomainRequest) returns (MessageResponse)
+    put /domains/:custom_domain (SetUserCustomDomainRequest) returns (ComersMessageResponse)
 
     @doc "通过地址获取用户"
     @handler GetComerByAddress
@@ -113,7 +113,7 @@ service metaLand {
 
     @doc "通过自定义域名获取用户"
     @handler GetUserCustomDomain
-    get /domains/:custom_domain (GetUserCustomDomainRequest) returns (ComerInfoDetailResponse)
+    get /domains/:custom_domain (GetUserCustomDomainRequest) returns (ComersInfoDetailResponse)
 
     @doc "校验用户是否可添加资料"
     @handler VerifyComerAddProfile
@@ -121,27 +121,27 @@ service metaLand {
 
     @doc "通过comer_id获取用户"
     @handler GetComerByComerId
-    get /:comer_id (GetComerByComerIdRequest) returns (ComerInfoDetailResponse)
+    get /:comer_id (GetComerByComerIdRequest) returns (ComersInfoDetailResponse)
 
     @doc "获取被该用户连接的comer列表"
     @handler GetComerBeConnectComersByComerId
-    get /:comer_id/be_connect/comers (GetComerBeConnectComersByComerIdRequest) returns (PageData)
+    get /:comer_id/be_connect/comers (GetComerBeConnectComersByComerIdRequest) returns (ComersPageData)
 
     @doc "连接某个comer"
     @handler ConnectComer
-    post /:comer_id/connect (ConnectComerRequest) returns (MessageResponse)
+    post /:comer_id/connect (ConnectComerRequest) returns (ComersMessageResponse)
 
     @doc "取消连接某个comer"
     @handler UnconnectComer
-    delete /:comer_id/connect (UnconnectComerRequest) returns (MessageResponse)
+    delete /:comer_id/connect (UnconnectComerRequest) returns (ComersMessageResponse)
 
     @doc "获取该用户连接的comer列表"
     @handler GetComerConnectComersByComerId
-    get /:comer_id/connect/comers (GetComerConnectComersByComerIdRequest) returns (PageData)
+    get /:comer_id/connect/comers (GetComerConnectComersByComerIdRequest) returns (ComersPageData)
 
     @doc "获取该用户连接的startup列表"
     @handler GetStartupConnectByComerId
-    get /:comer_id/connect/startups (GetComerConnectStartupsByComerIdRequest) returns (PageData)
+    get /:comer_id/connect/startups (GetComerConnectStartupsByComerIdRequest) returns (ComersPageData)
 
     @doc "获取该用户的连接状态"
     @handler ConnectedComer
@@ -149,7 +149,7 @@ service metaLand {
 
     @doc "通过comer_id获取用户详情"
     @handler GetComerInfoDetailByComerId
-    get /:comer_id/detail (GetComerInfoDetailByComerIdRequest) returns (ComerInfoDetailResponse)
+    get /:comer_id/detail (GetComerInfoDetailByComerIdRequest) returns (ComersInfoDetailResponse)
 
     @doc "获取该用户参与的项目数量"
     @handler GetComerParticipatedCountByComerId

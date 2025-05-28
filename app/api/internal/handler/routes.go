@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	authorizations "metaLand/app/api/internal/handler/authorizations"
+	chain "metaLand/app/api/internal/handler/chain"
 	comer "metaLand/app/api/internal/handler/comer"
 	comers "metaLand/app/api/internal/handler/comers"
 	languages "metaLand/app/api/internal/handler/languages"
@@ -50,6 +51,18 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 			}...,
 		),
 		rest.WithPrefix("/api/authorizations"),
+	)
+
+	server.AddRoutes(
+		[]rest.Route{
+			{
+				// 获取链列表
+				Method:  http.MethodGet,
+				Path:    "/list",
+				Handler: chain.GetChainListHandler(serverCtx),
+			},
+		},
+		rest.WithPrefix("/chain"),
 	)
 
 	server.AddRoutes(

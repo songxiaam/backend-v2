@@ -32,7 +32,7 @@ func NewUpdateComerInfoLogic(ctx context.Context, svcCtx *svc.ServiceContext) *U
 	}
 }
 
-func (l *UpdateComerInfoLogic) UpdateComerInfo(req *types.UpdateComerInfoRequest) (resp *types.MessageResponse, err error) {
+func (l *UpdateComerInfoLogic) UpdateComerInfo(req *types.UpdateComerInfoRequest) (resp *types.ComerMessageResponse, err error) {
 	if req.ComerId == 0 {
 		return nil, errors.New("comer_id is required")
 	}
@@ -160,7 +160,7 @@ func (l *UpdateComerInfoLogic) UpdateComerInfo(req *types.UpdateComerInfoRequest
 		return nil, err
 	}
 
-	return &types.MessageResponse{
+	return &types.ComerMessageResponse{
 		Message: "success",
 	}, nil
 }

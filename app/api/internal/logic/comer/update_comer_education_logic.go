@@ -26,7 +26,7 @@ func NewUpdateComerEducationLogic(ctx context.Context, svcCtx *svc.ServiceContex
 	}
 }
 
-func (l *UpdateComerEducationLogic) UpdateComerEducation(req *types.UpdateComerEducationRequest) (resp *types.MessageResponse, err error) {
+func (l *UpdateComerEducationLogic) UpdateComerEducation(req *types.UpdateComerEducationRequest) (resp *types.ComerMessageResponse, err error) {
 	comerEducation := comereducation.ComerEducation{
 		Base: model.Base{
 			ID: uint64(req.ComerEducationId),
@@ -44,7 +44,7 @@ func (l *UpdateComerEducationLogic) UpdateComerEducation(req *types.UpdateComerE
 		return nil, err
 	}
 
-	return &types.MessageResponse{
+	return &types.ComerMessageResponse{
 		Message: "success",
 	}, nil
 }

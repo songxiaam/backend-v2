@@ -8,7 +8,14 @@ type (
     }
 
     // 用户分页
-    PageData {
+    ComerPageData {
+        List  []interface{} `json:"list"`
+        Page  int           `json:"page"`
+        Size  int           `json:"size"`
+        Total int           `json:"total"`
+    }
+
+    ComersPageData {
         List  []interface{} `json:"list"`
         Page  int           `json:"page"`
         Size  int           `json:"size"`
@@ -31,11 +38,36 @@ type (
         TimeZone       string `json:"time_zone"`
     }
 
-    MessageResponse {
+    ComerMessageResponse {
+        Message string `json:"message"`
+    }
+
+    ComersMessageResponse {
         Message string `json:"message"`
     }
 
     ComerInfoDetailResponse {
+        Accounts       []ComerAccountResponse      `json:"accounts"`
+        Activation     bool                        `json:"activation"`
+        Address        string                      `json:"address"`
+        Avatar         string                      `json:"avatar"`
+        Banner         string                      `json:"banner"`
+        ConnectedTotal ComerConnectedTotalResponse `json:"connected_total"`
+        CustomDomain   string                      `json:"custom_domain"`
+        Educations     []ComerEducationResponse    `json:"educations"`
+        Id             int                         `json:"id"`
+        Info           ComerInfo                   `json:"info"`
+        InvitationCode string                      `json:"invitation_code"`
+        IsConnected    bool                        `json:"is_connected"`
+        Languages      []ComerLanguageResponse     `json:"languages"`
+        Location       string                      `json:"location"`
+        Name           string                      `json:"name"`
+        Skills         []ComerSkillResponse       `json:"skills"`
+        Socials        []ComerSocialResponse       `json:"socials"`
+        TimeZone       string                      `json:"time_zone"`
+    }
+
+    ComersInfoDetailResponse {
         Accounts       []ComerAccountResponse      `json:"accounts"`
         Activation     bool                        `json:"activation"`
         Address        string                      `json:"address"`

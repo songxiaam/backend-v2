@@ -25,12 +25,12 @@ func NewUnlinkOauthByComerAccountIdLogic(ctx context.Context, svcCtx *svc.Servic
 	}
 }
 
-func (l *UnlinkOauthByComerAccountIdLogic) UnlinkOauthByComerAccountId(req *types.UnlinkOauthByComerAccountIdRequest) (resp *types.MessageResponse, err error) {
+func (l *UnlinkOauthByComerAccountIdLogic) UnlinkOauthByComerAccountId(req *types.UnlinkOauthByComerAccountIdRequest) (resp *types.ComerMessageResponse, err error) {
 	err = comeraccount.DeleteComerAccount(l.svcCtx.DB, uint64(req.ComerAccountId))
 	if err != nil {
 		return nil, err
 	}
-	return &types.MessageResponse{
+	return &types.ComerMessageResponse{
 		Message: "success",
 	}, nil
 }
