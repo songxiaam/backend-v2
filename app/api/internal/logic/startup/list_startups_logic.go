@@ -2,7 +2,6 @@ package startup
 
 import (
 	"context"
-	"metaLand/data/model/startup"
 
 	"metaLand/app/api/internal/svc"
 	"metaLand/app/api/internal/types"
@@ -16,7 +15,7 @@ type ListStartupsLogic struct {
 	svcCtx *svc.ServiceContext
 }
 
-// NewListStartupsLogic 查询项目列表
+// 查询项目列表
 func NewListStartupsLogic(ctx context.Context, svcCtx *svc.ServiceContext) *ListStartupsLogic {
 	return &ListStartupsLogic{
 		Logger: logx.WithContext(ctx),
@@ -26,40 +25,7 @@ func NewListStartupsLogic(ctx context.Context, svcCtx *svc.ServiceContext) *List
 }
 
 func (l *ListStartupsLogic) ListStartups(req *types.ListStartupsRequest) (resp *types.ListStartupsResponse, err error) {
-	var response types.ListStartupsResponse
-	startups := make([]startup.Startup, 0)
+	// todo: add your logic here and delete this line
 
-	total, err := startup.ListStartups(l.svcCtx.DB, 0, &startup.ListStartupRequest{
-		Limit:     req.Limit,
-		Offset:    req.Offset,
-		IsDeleted: req.IsDeleted,
-		Keyword:   req.Keyword,
-		Mode:      req.Mode,
-	}, &startups)
-
-	if err != nil {
-		return nil, err
-	}
-
-	response.Total = total
-
-	for _, s := range startups {
-		response.List = append(response.List, &types.Startup{
-			ComerID:              s.ComerID,
-			Name:                 s.Name,
-			Mode:                 s.Mode,
-			Logo:                 s.Logo,
-			Cover:                s.Cover,
-			Mission:              s.Mission,
-			TokenContractAddress: s.TokenContractAddress,
-			Overview:             s.Overview,
-			ChainID:              s.ChainID,
-			TxHash:               s.TxHash,
-			OnChain:              s.OnChain,
-			KYC:                  s.KYC,
-			ContractAudit:        s.ContractAudit,
-		})
-	}
-
-	return &response, nil
+	return
 }

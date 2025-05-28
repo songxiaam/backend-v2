@@ -1,9 +1,9 @@
 Name: metaLand
 Host: 0.0.0.0
-Port: 8888
+Port: 9101
 
 DB:
-  DataSource: ""
+  DataSource: "root:mdw19921129#@tcp(127.0.0.1:3306)/metaland?charset=utf8mb4&parseTime=True&loc=Local"
 
 JWT:
   Secret: "123123"
@@ -11,3 +11,8 @@ JWT:
 
 Minio:
   Bucket: ""
+
+Redis:
+  Host: "127.0.0.1:6379"
+  Password: ""
+  DB: 0  

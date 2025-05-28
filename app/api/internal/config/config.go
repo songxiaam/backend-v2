@@ -17,4 +17,9 @@ type Config struct {
 	Minio struct {
 		Bucket string
 	}
+	Redis struct {
+		Host     string
+		Password string
+		DB       int
+	}
 }

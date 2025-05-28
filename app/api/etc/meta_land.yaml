@@ -11,3 +11,8 @@ JWT:
 
 Minio:
   Bucket: ""
+
+Redis:
+Host: ""
+Password: ""
+DB: 0  
