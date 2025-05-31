@@ -1,3 +1,4 @@
+syntax = "v1"
 type (
     // 通用基础
     Base {
