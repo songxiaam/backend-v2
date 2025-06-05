@@ -1,4 +1,3 @@
-import "../base_type.api"
 type (
     GetGovernanceSettingRequest {
         StartupId string `path:"startup_Id"`
@@ -25,8 +24,8 @@ type (
     SettingRequest {
         VoteSymbol string `json:"voteSymbol"`
         AllowMember bool `json:"allowMember"`
-        ProposalThreshold decimal.Decimal `json:"proposalThreshold"`
-        ProposalValidity decimal.Decimal `json:"proposalValidity"`
+        ProposalThreshold float64 `json:"proposalThreshold"`
+        ProposalValidity float64 `json:"proposalValidity"`
     }
 
     StrategyRequest {
@@ -36,7 +35,7 @@ type (
         VoteSymbol string `json:"voteSymbol"`
         TokenContractAddress string `json:"tokenContractAddress" binding:"required"`
         VoteDecimals int `json:"voteDecimals"`
-        TokenMinBalance decimal.Decimal `json:"tokenMinBalance"`
+        TokenMinBalance float64 `json:"tokenMinBalance"`
     }
 
     AdminRequest {
@@ -44,9 +43,19 @@ type (
     }
 
 )
+
+type (
+    BaseInfo {
+        ID uint64 `json:"id"`
+        CreatedAt string `json:"created_at"`
+        UpdatedAt string `json:"updated_at"`
+        IsDeleted bool `json:"is_deleted"`
+    }
+)
+
 type (
     GovernanceSetting {
-        Base
+        BaseInfo
         StartupId uint64 `json:"startup_id"`                    // 关联的初创公司ID
         ComerId uint64 `json:"comer_id"`                        // 创建者用户ID
         VoteSymbol string `json:"vote_symbol"`                  // 投票代币符号
@@ -56,7 +65,7 @@ type (
     }
 
     GovernanceStrategy {
-        Base
+        BaseInfo
         SettingId uint64 `json:"setting_id"`
         DictValue string `json:"dict_value"`
         StrategyName string `json:"strategy_name"`
@@ -68,7 +77,7 @@ type (
     }
 
     GovernanceAdmin {
-        Base
+        BaseInfo
         SettingId uint64 `json:"setting_id"`
         Address string `json:"address"`
     }

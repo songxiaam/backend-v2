@@ -10,6 +10,7 @@ import (
 	chain "metaLand/app/api/internal/handler/chain"
 	comer "metaLand/app/api/internal/handler/comer"
 	comers "metaLand/app/api/internal/handler/comers"
+	governance "metaLand/app/api/internal/handler/governance"
 	languages "metaLand/app/api/internal/handler/languages"
 	share "metaLand/app/api/internal/handler/share"
 	startup "metaLand/app/api/internal/handler/startup"
@@ -291,6 +292,24 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 			}...,
 		),
 		rest.WithPrefix("/api/comers"),
+	)
+
+	server.AddRoutes(
+		[]rest.Route{
+			{
+				// 获取GovernanceSetting
+				Method:  http.MethodGet,
+				Path:    "/setting/:startup_id",
+				Handler: governance.GetGovernanceSettingHandler(serverCtx),
+			},
+			{
+				// 创建GovernanceSetting
+				Method:  http.MethodPost,
+				Path:    "/setting/:startup_id",
+				Handler: governance.CreateGovernanceSettingHandler(serverCtx),
+			},
+		},
+		rest.WithPrefix("/governance"),
 	)
 
 	server.AddRoutes(

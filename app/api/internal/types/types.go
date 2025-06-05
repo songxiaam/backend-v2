@@ -3,11 +3,22 @@
 
 package types
 
+type AdminRequest struct {
+	WalletAddress string `json:"walletAddress"`
+}
+
 type Base struct {
 	ID        uint64 `gorm:"column:id;primaryKey;autoIncrement" json:"id"`
 	CreatedAt string `gorm:"column:created_at;autoCreateTime" json:"created_at"`
 	UpdatedAt string `gorm:"column:updated_at;autoUpdateTime" json:"updated_at"`
 	IsDeleted bool   `gorm:"column:is_deleted;default:false" json:"is_deleted"`
+}
+
+type BaseInfo struct {
+	ID        uint64 `json:"id"`
+	CreatedAt string `json:"created_at"`
+	UpdatedAt string `json:"updated_at"`
+	IsDeleted bool   `json:"is_deleted"`
 }
 
 type ChainBasicResponse struct {
@@ -104,10 +115,45 @@ type FollowRelation struct {
 	ComerID uint64 `json:comerID`
 }
 
+type GovernanceAdmin struct {
+	BaseInfo
+	SettingId uint64 `json:"setting_id"`
+	Address   string `json:"address"`
+}
+
+type GovernanceSetting struct {
+	BaseInfo
+	StartupId         uint64  `json:"startup_id"`         // 关联的初创公司ID
+	ComerId           uint64  `json:"comer_id"`           // 创建者用户ID
+	VoteSymbol        string  `json:"vote_symbol"`        // 投票代币符号
+	AllowMember       bool    `json:"allow_member"`       // 是否允许成员投票：0-否 1-是
+	ProposalThreshold float64 `json:"proposal_threshold"` // 提案阈值
+	ProposalValidity  float64 `json:"proposal_validity"`  // 提案有效期(天)
+}
+
+type GovernanceStrategy struct {
+	BaseInfo
+	SettingId            uint64  `json:"setting_id"`
+	DictValue            string  `json:"dict_value"`
+	StrategyName         string  `json:"strategy_name"`
+	ChainId              uint64  `json:"chain_id"`
+	TokenContractAddress string  `json:"token_contract_address"`
+	VoteSymbol           string  `json:"vote_symbol"`
+	VoteDecimals         int     `json:"vote_decimals"`
+	TokenMinBalance      float64 `json:"token_min_balance"`
+}
+
 type OauthAccountBindingInfo struct {
 	Linked      bool   `json:"linked"`
 	AccountType int    `json:"accountType"`
 	AccountId   uint64 `json:"accountId"`
+}
+
+type SettingRequest struct {
+	VoteSymbol        string  `json:"voteSymbol"`
+	AllowMember       bool    `json:"allowMember"`
+	ProposalThreshold float64 `json:"proposalThreshold"`
+	ProposalValidity  float64 `json:"proposalValidity"`
 }
 
 type SimpleStartupInfo struct {
@@ -139,6 +185,16 @@ type StartupTeamMember struct {
 	Position     string `json:"position"`
 	Comer        string `json:"comer"`
 	FollowedByMe bool   `json:"followedByMe"`
+}
+
+type StrategyRequest struct {
+	DictValue            string  `json:"dictValue" binding:"required"`
+	StrategyName         string  `json:"strategyName" binding:"required"`
+	ChainId              uint64  `json:"chainId" binding:"required"`
+	VoteSymbol           string  `json:"voteSymbol"`
+	TokenContractAddress string  `json:"tokenContractAddress" binding:"required"`
+	VoteDecimals         int     `json:"voteDecimals"`
+	TokenMinBalance      float64 `json:"tokenMinBalance"`
 }
 
 type Tag struct {

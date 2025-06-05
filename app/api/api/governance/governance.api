@@ -7,11 +7,11 @@ import "type.api"
     group: governance
 )
 service metaLand {
-    @doc "获取token"
+    @doc "获取GovernanceSetting"
     @handler GetGovernanceSetting
     get /setting/:startup_id (GetGovernanceSettingRequest) returns (GetGovernanceSettingResponse)
 
-    @doc "获取TokenList"
+    @doc "创建GovernanceSetting"
     @handler CreateGovernanceSetting
     post /setting/:startup_id (CreateOrUpdateGovernanceSettingRequest) returns (CreateGovernanceSettingResponse)
 }
