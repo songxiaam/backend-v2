@@ -1,0 +1,75 @@
+import "../base_type.api"
+type (
+    GetGovernanceSettingRequest {
+        StartupId string `path:"startup_Id"`
+    }
+    GetGovernanceSettingResponse {
+        GovernanceSetting
+        Strategies []GovernanceStrategy `json:"strategies"`
+        admins []GovernanceAdmin `json:"admins"`
+    }
+
+    CreateOrUpdateGovernanceSettingRequest {
+        StartupId string `path:"startup_Id"`
+        SettingRequest
+        Strategies []StrategyRequest `json:"strategies"`
+        Admins []AdminRequest `json:"admins"`
+    }
+
+    CreateGovernanceSettingResponse {
+
+    }
+)
+
+type (
+    SettingRequest {
+        VoteSymbol string `json:"voteSymbol"`
+        AllowMember bool `json:"allowMember"`
+        ProposalThreshold decimal.Decimal `json:"proposalThreshold"`
+        ProposalValidity decimal.Decimal `json:"proposalValidity"`
+    }
+
+    StrategyRequest {
+        DictValue string `json:"dictValue" binding:"required"`
+        StrategyName string `json:"strategyName" binding:"required"`
+        ChainId uint64 `json:"chainId" binding:"required"`
+        VoteSymbol string `json:"voteSymbol"`
+        TokenContractAddress string `json:"tokenContractAddress" binding:"required"`
+        VoteDecimals int `json:"voteDecimals"`
+        TokenMinBalance decimal.Decimal `json:"tokenMinBalance"`
+    }
+
+    AdminRequest {
+        WalletAddress string `json:"walletAddress"`
+    }
+
+)
+type (
+    GovernanceSetting {
+        Base
+        StartupId uint64 `json:"startup_id"`                    // 关联的初创公司ID
+        ComerId uint64 `json:"comer_id"`                        // 创建者用户ID
+        VoteSymbol string `json:"vote_symbol"`                  // 投票代币符号
+        AllowMember bool `json:"allow_member"`                  // 是否允许成员投票：0-否 1-是
+        ProposalThreshold float64 `json:"proposal_threshold"`   // 提案阈值
+        ProposalValidity float64 `json:"proposal_validity"`     // 提案有效期(天)
+    }
+
+    GovernanceStrategy {
+        Base
+        SettingId uint64 `json:"setting_id"`
+        DictValue string `json:"dict_value"`
+        StrategyName string `json:"strategy_name"`
+        ChainId uint64 `json:"chain_id"`
+        TokenContractAddress string `json:"token_contract_address"`
+        VoteSymbol string `json:"vote_symbol"`
+        VoteDecimals int `json:"vote_decimals"`
+        TokenMinBalance float64 `json:"token_min_balance"`
+    }
+
+    GovernanceAdmin {
+        Base
+        SettingId uint64 `json:"setting_id"`
+        Address string `json:"address"`
+    }
+)
