@@ -1,4 +1,4 @@
-import "../startup/startup.api"
+import "../startup/base.api"
 import "../user/base.api"
 import "../base_type.api"
 
@@ -46,7 +46,6 @@ type (
         WalletAddress string `json:"walletAddress"`
     }
 )
-
 
 
 type (
