@@ -3,6 +3,7 @@ package svc
 import (
 	"metaLand/app/api/internal/config"
 	"metaLand/app/api/internal/middleware"
+	"metaLand/data/utility"
 
 	"github.com/redis/go-redis/v9"
 	"github.com/sony/sonyflake"
@@ -34,6 +35,12 @@ func NewServiceContext(c config.Config) *ServiceContext {
 		Password: c.Redis.Password,
 		DB:       c.Redis.DB,
 	})
+
+	err = utility.Init()
+	if err != nil {
+		panic(err)
+	}
+	
 	return &ServiceContext{
 		Config:                       c,
 		OIDCAuthMiddleware:           middleware.NewOIDCAuthMiddleware(c, db).Handle,

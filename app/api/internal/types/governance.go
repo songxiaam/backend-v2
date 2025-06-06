@@ -4,17 +4,18 @@
 package types
 
 type CreateGovernanceSettingResponse struct {
+	GovernanceSetting GovernanceSetting `json:"governanceSetting"`
 }
 
 type CreateOrUpdateGovernanceSettingRequest struct {
-	StartupId string `path:"startup_Id"`
+	StartupId uint64 `path:"startup_id"`
 	SettingRequest
 	Strategies []StrategyRequest `json:"strategies"`
 	Admins     []AdminRequest    `json:"admins"`
 }
 
 type GetGovernanceSettingRequest struct {
-	StartupId string `path:"startup_Id"`
+	StartupId uint64 `path:"startup_id"`
 }
 
 type GetGovernanceSettingResponse struct {

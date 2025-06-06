@@ -309,7 +309,7 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				Handler: governance.CreateGovernanceSettingHandler(serverCtx),
 			},
 		},
-		rest.WithPrefix("/governance"),
+		rest.WithPrefix("/api/governance"),
 	)
 
 	server.AddRoutes(

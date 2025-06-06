@@ -1,6 +1,6 @@
 type (
     GetGovernanceSettingRequest {
-        StartupId string `path:"startup_Id"`
+        StartupId uint64 `path:"startup_id"`
     }
     GetGovernanceSettingResponse {
         GovernanceSetting
@@ -9,14 +9,14 @@ type (
     }
 
     CreateOrUpdateGovernanceSettingRequest {
-        StartupId string `path:"startup_Id"`
+        StartupId uint64 `path:"startup_id"`
         SettingRequest
         Strategies []StrategyRequest `json:"strategies"`
         Admins []AdminRequest `json:"admins"`
     }
 
     CreateGovernanceSettingResponse {
-
+        GovernanceSetting GovernanceSetting `json:"governanceSetting"`
     }
 )
 
@@ -24,8 +24,8 @@ type (
     SettingRequest {
         VoteSymbol string `json:"voteSymbol"`
         AllowMember bool `json:"allowMember"`
-        ProposalThreshold float64 `json:"proposalThreshold"`
-        ProposalValidity float64 `json:"proposalValidity"`
+        ProposalThreshold string `json:"proposalThreshold"`
+        ProposalValidity string `json:"proposalValidity"`
     }
 
     StrategyRequest {
@@ -35,7 +35,7 @@ type (
         VoteSymbol string `json:"voteSymbol"`
         TokenContractAddress string `json:"tokenContractAddress" binding:"required"`
         VoteDecimals int `json:"voteDecimals"`
-        TokenMinBalance float64 `json:"tokenMinBalance"`
+        TokenMinBalance string `json:"tokenMinBalance"`
     }
 
     AdminRequest {
@@ -60,8 +60,8 @@ type (
         ComerId uint64 `json:"comer_id"`                        // 创建者用户ID
         VoteSymbol string `json:"vote_symbol"`                  // 投票代币符号
         AllowMember bool `json:"allow_member"`                  // 是否允许成员投票：0-否 1-是
-        ProposalThreshold float64 `json:"proposal_threshold"`   // 提案阈值
-        ProposalValidity float64 `json:"proposal_validity"`     // 提案有效期(天)
+        ProposalThreshold string `json:"proposal_threshold"`   // 提案阈值
+        ProposalValidity string `json:"proposal_validity"`     // 提案有效期(天)
     }
 
     GovernanceStrategy {

@@ -3,7 +3,7 @@ syntax = "v1"
 import "type.api"
 
 @server(
-    prefix: /governance
+    prefix: /api/governance
     group: governance
 )
 service metaLand {

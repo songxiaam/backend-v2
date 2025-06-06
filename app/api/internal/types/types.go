@@ -123,12 +123,12 @@ type GovernanceAdmin struct {
 
 type GovernanceSetting struct {
 	BaseInfo
-	StartupId         uint64  `json:"startup_id"`         // 关联的初创公司ID
-	ComerId           uint64  `json:"comer_id"`           // 创建者用户ID
-	VoteSymbol        string  `json:"vote_symbol"`        // 投票代币符号
-	AllowMember       bool    `json:"allow_member"`       // 是否允许成员投票：0-否 1-是
-	ProposalThreshold float64 `json:"proposal_threshold"` // 提案阈值
-	ProposalValidity  float64 `json:"proposal_validity"`  // 提案有效期(天)
+	StartupId         uint64 `json:"startup_id"`         // 关联的初创公司ID
+	ComerId           uint64 `json:"comer_id"`           // 创建者用户ID
+	VoteSymbol        string `json:"vote_symbol"`        // 投票代币符号
+	AllowMember       bool   `json:"allow_member"`       // 是否允许成员投票：0-否 1-是
+	ProposalThreshold string `json:"proposal_threshold"` // 提案阈值
+	ProposalValidity  string `json:"proposal_validity"`  // 提案有效期(天)
 }
 
 type GovernanceStrategy struct {
@@ -150,10 +150,10 @@ type OauthAccountBindingInfo struct {
 }
 
 type SettingRequest struct {
-	VoteSymbol        string  `json:"voteSymbol"`
-	AllowMember       bool    `json:"allowMember"`
-	ProposalThreshold float64 `json:"proposalThreshold"`
-	ProposalValidity  float64 `json:"proposalValidity"`
+	VoteSymbol        string `json:"voteSymbol"`
+	AllowMember       bool   `json:"allowMember"`
+	ProposalThreshold string `json:"proposalThreshold"`
+	ProposalValidity  string `json:"proposalValidity"`
 }
 
 type SimpleStartupInfo struct {
@@ -188,13 +188,13 @@ type StartupTeamMember struct {
 }
 
 type StrategyRequest struct {
-	DictValue            string  `json:"dictValue" binding:"required"`
-	StrategyName         string  `json:"strategyName" binding:"required"`
-	ChainId              uint64  `json:"chainId" binding:"required"`
-	VoteSymbol           string  `json:"voteSymbol"`
-	TokenContractAddress string  `json:"tokenContractAddress" binding:"required"`
-	VoteDecimals         int     `json:"voteDecimals"`
-	TokenMinBalance      float64 `json:"tokenMinBalance"`
+	DictValue            string `json:"dictValue" binding:"required"`
+	StrategyName         string `json:"strategyName" binding:"required"`
+	ChainId              uint64 `json:"chainId" binding:"required"`
+	VoteSymbol           string `json:"voteSymbol"`
+	TokenContractAddress string `json:"tokenContractAddress" binding:"required"`
+	VoteDecimals         int    `json:"voteDecimals"`
+	TokenMinBalance      string `json:"tokenMinBalance"`
 }
 
 type Tag struct {
