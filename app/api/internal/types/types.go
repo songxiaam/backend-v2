@@ -3,6 +3,8 @@
 
 package types
 
+import "time"
+
 type Base struct {
 	ID        uint64 `gorm:"column:id;primaryKey;autoIncrement" json:"id"`
 	CreatedAt string `gorm:"column:created_at;autoCreateTime" json:"created_at"`
@@ -167,4 +169,91 @@ type TagResponse struct {
 
 type Wallet struct {
 	Address string `json:address`
+}
+
+
+type CheckStartupExistsRequest struct {
+	Name                 string `json:"name,omitempty"`                   // 项目名称（可选，与合约地址至少传一个）
+	TokenContractAddress string `json:"token_contract_address,omitempty"` // 代币合约地址（可选，与名称至少传一个）
+	IsDeleted            bool   `json:"is_deleted,omitempty"`             // 是否包含已删除记录（默认：false）
+}
+
+type CheckStartupExistsResponse struct {
+	Exists bool `json:"exists"` // 是否存在
+}
+
+type CreateStartupsRequest struct {
+	ComerID              uint64 `json:"comer_id"`               // 创建者ID
+	Name                 string `json:"name"`                   // 项目名称（必填）
+	Mode                 uint8  `json:"mode"`                   // 项目类型（0:NONE, 1:ESG, 2:NGO, 3:DAO, 4:COM）
+	Logo                 string `json:"logo"`                   // 项目LOGO地址
+	Cover                string `json:"cover"`                  // 项目封面地址
+	Mission              string `json:"mission"`                // 项目使命
+	TokenContractAddress string `json:"token_contract_address"` // 代币合约地址
+	Overview             string `json:"overview"`               // 项目简介（必填）
+	TxHash               string `json:"tx_hash"`                // 链上交易哈希
+	OnChain              bool   `json:"on_chain"`               // 是否上链
+	KYC                  string `json:"kyc"`                    // KYC文件地址
+	ContractAudit        string `json:"contract_audit"`         // 合约审计报告地址
+	Website              string `json:"website"`                // 官网地址
+	Discord              string `json:"discord"`                // Discord地址
+	Twitter              string `json:"twitter"`                // Twitter地址
+	Telegram             string `json:"telegram"`               // Telegram地址
+	Docs                 string `json:"docs"`                   // 文档地址
+	Email                string `json:"email"`                  // 邮箱
+	Facebook             string `json:"facebook"`               // Facebook地址
+	Medium               string `json:"medium"`                 // Medium地址
+	Linktree             string `json:"linktree"`               // Linktree地址
+	LaunchNetwork        int    `json:"launch_network"`         // 部署网络ID（链ID）
+	TokenName            string `json:"token_name"`             // 代币名称
+	TokenSymbol          string `json:"token_symbol"`           // 代币符号
+	TotalSupply          int64  `json:"total_supply"`           // 代币总供应量
+	PresaleStart         *time.Time `json:"presale_start"`          // 预售开始时间（可选，时间格式：RFC3339）
+	PresaleEnd           *time.Time `json:"presale_end"`            // 预售结束时间（可选，时间格式：RFC3339）
+	LaunchDate           *time.Time `json:"launch_date"`            // 上线时间（可选，时间格式：RFC3339）
+	TabSequence          string `json:"tab_sequence"`           // 标签页顺序（JSON字符串）
+	IsDeleted            bool   `json:"is_deleted"`             // 是否逻辑删除（默认：false）
+}
+
+type CreateStartupsResponse struct {
+	Suc bool   `json:"suc"` // 是否成功
+	Msg string `json:"msg"` // 提示信息（可选）
+}
+
+type GetStartupInfoRequest struct {
+	StartupId uint64 `form:"startupId"`
+}
+
+type ListStartupsRequest struct {
+	Limit     int    `json:"limit"`
+	Offset    int    `json:"offset"`
+	IsDeleted bool   `json:"isDeleted"`
+	Keyword   string `json:"keyword"`
+	Mode      uint8  `json:"mode"`
+}
+
+type ListStartupsResponse struct {
+	List  []*Startup `json:list`
+	Total int64      `json: total`
+}
+
+type StartupInfoResponse struct {
+	Code    int     `json:"code"`    // 状态码
+	Message string  `json:"message"` // 消息
+	Data    Startup `json:"data"`    // 项目详情
+}
+
+type UpdateStartupsRequest struct {
+	StartupId uint64 `json:"startup_id"` // 项目ID
+	Name      string `json:"name"`       // 项目名称（必填）
+	Mode      uint8  `json:"mode"`       // 项目类型（0:NONE, 1:ESG, 2:NGO, 3:DAO, 4:COM）
+	Logo      string `json:"logo"`       // 项目LOGO地址
+	Cover     string `json:"cover"`      // 项目封面地址
+	Overview  string `json:"overview"`   // 项目简介（必填）
+	Website   string `json:"website"`    // 官网地址
+}
+
+type UpdateStartupsResponse struct {
+	Suc bool   `json:"suc"` // 是否成功
+	Msg string `json:"msg"` // 提示信息（可选）
 }
