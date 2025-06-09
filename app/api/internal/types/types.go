@@ -33,13 +33,13 @@ type Bounty struct {
 }
 
 type BountyApplicant struct {
-	BountyId    uint64 `json:"bountyId"`    // 赏金任务ID
-	ComerID     uint64 `json:"comerId"`     // 申请人ID
-	ApplyAt     string `json:"applyAt"`     // 申请时间
-	RevokeAt    string `json:"revokeAt"`    // 撤销时间
-	ApproveAt   string `json:"approveAt"`   // 批准时间
-	QuitAt      string `json:"quitAt"`      // 退出时间
-	SubmitAt    string `json:"submitAt"`    // 提交时间
+	BountyId    uint64 `json:"bounty_id"`   // 赏金任务ID
+	ComerID     uint64 `json:"comer_id"`    // 申请人ID
+	ApplyAt     string `json:"apply_at"`    // 申请时间
+	RevokeAt    string `json:"revoke_at"`   // 撤销时间
+	ApproveAt   string `json:"approve_at"`  // 批准时间
+	QuitAt      string `json:"quit_at"`     // 退出时间
+	SubmitAt    string `json:"submit_at"`   // 提交时间
 	Status      int    `json:"status"`      // 申请状态
 	Description string `json:"description"` // 申请描述
 }
@@ -49,64 +49,64 @@ type BountyComer struct {
 	Address        string                `json:"address"`
 	Avatar         string                `json:"avatar"`
 	Banner         string                `json:"banner"`
-	CustomDomain   string                `json:"customDomain"`
+	CustomDomain   string                `json:"custom_domain"`
 	Id             int                   `json:"id"`
-	InvitationCode string                `json:"invitationCode"`
-	IsConnected    bool                  `json:"isConnected"`
+	InvitationCode string                `json:"invitation_code"`
+	IsConnected    bool                  `json:"is_connected"`
 	Location       string                `json:"location"`
 	Name           string                `json:"name"`
 	Skills         []TagRelationResponse `json:"skills"`
-	TimeZone       string                `json:"timeZone"`
+	TimeZone       string                `json:"time_zone"`
 }
 
 type BountyContact struct {
-	BountyId       uint64 `json:"bountyId"`       // 赏金任务ID
-	ContactType    uint8  `json:"contactType"`    // 联系方式类型
-	ContactAddress string `json:"contactAddress"` // 联系地址
+	BountyId       uint64 `json:"bounty_id"`       // 赏金任务ID
+	ContactType    uint8  `json:"contact_type"`    // 联系方式类型
+	ContactAddress string `json:"contact_address"` // 联系地址
 }
 
 type BountyDepositRecord struct {
 	Amount    int                `json:"amount"`
-	BountyId  uint64             `json:"bountyId"`
+	BountyId  uint64             `json:"bounty_id"`
 	Comer     ComerBasicResponse `json:"comer"`
-	ComerId   uint64             `json:"comerId"`
-	CreatedAt string             `json:"createdAt"`
+	ComerId   uint64             `json:"comer_id"`
+	CreatedAt string             `json:"created_at"`
 	Id        uint64             `json:"id"`
 	Mode      int                `json:"mode"`
 	Status    int8               `json:"status"`
-	TxHash    string             `json:"txHash"`
+	TxHash    string             `json:"tx_hash"`
 }
 
 type BountyPaymentPeriod struct {
-	BountyId     uint64 `json:"bountyId"`     // 赏金任务ID（唯一索引）
-	PeriodType   int    `json:"periodType"`   // 周期类型
-	PeriodAmount uint64 `json:"periodAmount"` // 周期数量
-	HoursPerDay  int    `json:"hoursPerDay"`  // 每日小时数
-	Token1Symbol string `json:"token1Symbol"` // 代币1符号
-	Token1Amount int    `json:"token1Amount"` // 代币1数量
-	Token2Symbol string `json:"token2Symbol"` // 代币2符号
-	Token2Amount int    `json:"token2Amount"` // 代币2数量
-	Target       string `json:"target"`       // 目标描述
+	BountyId     uint64 `json:"bounty_id"`     // 赏金任务ID（唯一索引）
+	PeriodType   int    `json:"period_type"`   // 周期类型
+	PeriodAmount uint64 `json:"period_amount"` // 周期数量
+	HoursPerDay  int    `json:"hours_per_day"` // 每日小时数
+	Token1Symbol string `json:"token1_symbol"` // 代币1符号
+	Token1Amount int    `json:"token1_amount"` // 代币1数量
+	Token2Symbol string `json:"token2_symbol"` // 代币2符号
+	Token2Amount int    `json:"token2_amount"` // 代币2数量
+	Target       string `json:"target"`        // 目标描述
 }
 
 type BountyPaymentTerms struct {
-	BountyId     uint64 `json:"bountyId"`     // 关联的赏金任务ID
-	PaymentMode  int8   `json:"paymentMode"`  // 支付方式
-	Token1Symbol string `json:"token1Symbol"` // 第一种代币符号
-	Token1Amount int    `json:"token1Amount"` // 第一种代币数量
-	Token2Symbol string `json:"token2Symbol"` // 第二种代币符号
-	Token2Amount int    `json:"token2Amount"` // 第二种代币数量
-	Terms        string `json:"terms"`        // 支付条款详情
-	SeqNum       int    `json:"seqNum"`       // 排序序号
-	Status       int    `json:"status"`       // 状态
+	BountyId     uint64 `json:"bounty_id"`     // 关联的赏金任务ID
+	PaymentMode  int8   `json:"payment_mode"`  // 支付方式
+	Token1Symbol string `json:"token1_symbol"` // 第一种代币符号
+	Token1Amount int    `json:"token1_amount"` // 第一种代币数量
+	Token2Symbol string `json:"token2_symbol"` // 第二种代币符号
+	Token2Amount int    `json:"token2_amount"` // 第二种代币数量
+	Terms        string `json:"terms"`         // 支付条款详情
+	SeqNum       int    `json:"seq_num"`       // 排序序号
+	Status       int    `json:"status"`        // 状态
 }
 
 type BountyReward struct {
-	BountyId     uint64 `json:"bountyId"`
-	Token1Symbol string `json:"token1Symbol"`
-	Token1Amount int    `json:"token1Amount"`
-	Token2Symbol string `json:"token2Symbol"`
-	Token2Amount int    `json:"token2Amount"`
+	BountyId     uint64 `json:"bounty_id"`
+	Token1Symbol string `json:"token1_symbol"`
+	Token1Amount int    `json:"token1_amount"`
+	Token2Symbol string `json:"token2_symbol"`
+	Token2Amount int    `json:"token2_amount"`
 }
 
 type ChainBasicResponse struct {
@@ -200,8 +200,8 @@ type ComerSocialResponse struct {
 }
 
 type Contact struct {
-	ContactType    uint8  `json:"contactType"` // 1:Email 2:Discord 3:Telegram
-	ContactAddress string `json:"contactAddress"`
+	ContactType    uint8  `json:"contact_type"` // 1:Email 2:Discord 3:Telegram
+	ContactAddress string `json:"contact_address"`
 }
 
 type FollowRelation struct {
@@ -215,11 +215,11 @@ type OauthAccountBindingInfo struct {
 }
 
 type PostUpdate struct {
-	SourceType int    `json:"sourceType"`
-	SourceID   uint64 `json:"sourceId"`
-	ComerID    uint64 `json:"comerId"`
+	SourceType int    `json:"source_type"`
+	SourceID   uint64 `json:"source_id"`
+	ComerID    uint64 `json:"comer_id"`
 	Content    string `json:"content"`
-	TimeStamp  string `json:"timeStamp"` // post time
+	TimeStamp  string `json:"time_stamp"` // post time
 }
 
 type SimpleStartupInfo struct {
@@ -231,9 +231,9 @@ type SimpleStartupInfo struct {
 
 type SocialBookResponse struct {
 	Id           int                `json:"id"`
-	SocialTool   SocialToolResponse `json:"socialTool"`
-	SocialToolId int                `json:"socialToolId"`
-	TargetId     int                `json:"targetId"`
+	SocialTool   SocialToolResponse `json:"social_tool"`
+	SocialToolId int                `json:"social_tool_id"`
+	TargetId     int                `json:"target_id"`
 	Type         int                `json:"type"`
 	Value        string             `json:"value"`
 }
@@ -262,35 +262,35 @@ type Startup struct {
 
 type StartupBasic struct {
 	Banner        string `json:"banner"`
-	ChainId       int    `json:"chainId"`
-	ComerId       int    `json:"comerId"`
-	ContractAudit string `json:"contractAudit"`
+	ChainId       int    `json:"chain_id"`
+	ComerId       int    `json:"comer_id"`
+	ContractAudit string `json:"contract_audit"`
 	Id            uint64 `json:"id"`
-	IsConnected   bool   `json:"isConnected"`
+	IsConnected   bool   `json:"is_connected"`
 	Kyc           string `json:"kyc"`
 	Logo          string `json:"logo"`
 	Mission       string `json:"mission"`
 	Name          string `json:"name"`
-	OnChain       bool   `json:"onChain"`
-	TxHash        string `json:"txHash"`
+	OnChain       bool   `json:"on_chain"`
+	TxHash        string `json:"tx_hash"`
 	Type          int    `json:"type"`
 }
 
 type StartupCardResponse struct {
 	Banner        string                `json:"banner"`
-	ChainId       int                   `json:"chainId"`
-	ComerId       int                   `json:"comerId"`
-	ContractAudit string                `json:"contractAudit"`
+	ChainId       int                   `json:"chain_id"`
+	ComerId       int                   `json:"comer_id"`
+	ContractAudit string                `json:"contract_audit"`
 	Id            int                   `json:"id"`
-	IsConnected   bool                  `json:"isConnected"`
+	IsConnected   bool                  `json:"is_connected"`
 	Kyc           string                `json:"kyc"`
 	Logo          string                `json:"logo"`
 	Mission       string                `json:"mission"`
 	Name          string                `json:"name"`
-	OnChain       bool                  `json:"onChain"`
+	OnChain       bool                  `json:"on_chain"`
 	Socials       []SocialBookResponse  `json:"socials"`
 	Tags          []TagRelationResponse `json:"tags"`
-	TxHash        string                `json:"txHash"`
+	TxHash        string                `json:"tx_hash"`
 	Type          int                   `json:"type"`
 }
 
