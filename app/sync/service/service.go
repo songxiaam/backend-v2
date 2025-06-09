@@ -6,6 +6,7 @@ import (
 	"github.com/redis/go-redis/v9"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
+	"metaLand/app/sync/service/bounty"
 	"metaLand/app/sync/service/common"
 	"metaLand/app/sync/service/config"
 	"metaLand/app/sync/service/crontask"
@@ -37,4 +38,5 @@ func New(ctx context.Context, cfg *config.Config) (*Service, error) {
 func (s *Service) Start() {
 	startup.NewTaskStartup(s.ctx).Start()
 	crontask.NewTask().Start()
+	bounty.NewTaskBounty(s.ctx).Start()
 }
