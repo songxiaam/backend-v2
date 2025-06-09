@@ -98,8 +98,14 @@ func GetAllContractAddresses(db *gorm.DB, eth *eth.EthClients) error {
 						if err != nil {
 							return err
 						}
-
-						if err := crowdfunding.UpdateCrowdfunding(db, history.CrowdfundingId, history.MaxSellPercent, history.BuyPrice, history.MaxBuyAmount, history.SwapPercent, history.EndTime); err != nil {
+						if err := crowdfunding.UpdateCrowdfunding(db, history.CrowdfundingId, crowdfunding.ModifyRequest{
+							TransactionHashRequest: crowdfunding.TransactionHashRequest{},
+							SwapPercent:            history.SwapPercent,
+							BuyPrice:               history.BuyPrice,
+							MaxBuyAmount:           history.MaxBuyAmount,
+							MaxSellPercent:         history.MaxSellPercent,
+							EndTime:                history.EndTime,
+						}); err != nil {
 							return err
 						}
 

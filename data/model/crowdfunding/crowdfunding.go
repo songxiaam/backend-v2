@@ -1,7 +1,6 @@
 package crowdfunding
 
 import (
-	"github.com/shopspring/decimal"
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
 	"strings"
@@ -58,21 +57,12 @@ func UpdateCrowdfundingSwapStatus(db *gorm.DB, id uint64, status CrowdfundingSwa
 	return db.Model(&CrowdfundingSwap{}).Where("id = ?", id).Updates(map[string]interface{}{"status": status}).Error
 }
 
-//func UpdateCrowdfunding(db *gorm.DB, crowdfundingId uint64, request ModifyRequest) error {
-//	return db.Model(&Crowdfunding{}).Where("is_deleted=0 and id = ?", crowdfundingId).Updates(Crowdfunding{
-//		SellInfo:    SellInfo{MaxSellPercent: request.MaxSellPercent},
-//		BuyInfo:     BuyInfo{BuyPrice: request.BuyPrice, MaxBuyAmount: request.MaxBuyAmount},
-//		SwapPercent: request.SwapPercent,
-//		EndTime:     request.EndTime,
-//	}).Error
-//}
-
-func UpdateCrowdfunding(db *gorm.DB, crowdfundingId uint64, maxSellPercent, buyPrice, maxBuyAmount, swapPercent decimal.Decimal, endTime time.Time) error {
+func UpdateCrowdfunding(db *gorm.DB, crowdfundingId uint64, request ModifyRequest) error {
 	return db.Model(&Crowdfunding{}).Where("is_deleted=0 and id = ?", crowdfundingId).Updates(Crowdfunding{
-		SellInfo:    SellInfo{MaxSellPercent: maxSellPercent},
-		BuyInfo:     BuyInfo{BuyPrice: buyPrice, MaxBuyAmount: maxBuyAmount},
-		SwapPercent: swapPercent,
-		EndTime:     endTime,
+		SellInfo:    SellInfo{MaxSellPercent: request.MaxSellPercent},
+		BuyInfo:     BuyInfo{BuyPrice: request.BuyPrice, MaxBuyAmount: request.MaxBuyAmount},
+		SwapPercent: request.SwapPercent,
+		EndTime:     request.EndTime,
 	}).Error
 }
 
