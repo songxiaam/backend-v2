@@ -32,8 +32,26 @@ type Base struct {
 }
 
 func (base *Base) BeforeCreate(tx *gorm.DB) (err error) {
-	base.ID = utility.Sequence.Next()
-	return
+
+	if base == nil {
+		return nil
+	}
+
+	if base.CreatedAt.IsZero() {
+		base.CreatedAt = time.Now()
+	}
+
+	if base.UpdatedAt.IsZero() {
+		base.UpdatedAt = time.Now()
+	}
+
+	// 关键修改：检查 Sequence 是否为 nil
+	if utility.Sequence != nil {
+		base.ID = utility.Sequence.Next()
+	}
+
+	return nil
+
 }
 
 // RelationBase contains common columns for all tables.

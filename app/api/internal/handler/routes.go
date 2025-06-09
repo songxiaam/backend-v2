@@ -21,6 +21,46 @@ import (
 )
 
 func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
+
+	server.AddRoutes(
+		rest.WithMiddlewares(
+			[]rest.Middleware{serverCtx.OIDCAuthMiddleware},
+			[]rest.Route{
+				{
+					// 判断项目是否存在
+					Method:  http.MethodGet,
+					Path:    "/check-exists",
+					Handler: startup.CheckStartupExistsHandler(serverCtx),
+				},
+				{
+					// 创建项目
+					Method:  http.MethodPost,
+					Path:    "/create-startup",
+					Handler: startup.CreateStartupsHandler(serverCtx),
+				},
+				{
+					// 获取项目详情
+					Method:  http.MethodGet,
+					Path:    "/getInfo",
+					Handler: startup.GetStartupInfoHandler(serverCtx),
+				},
+				{
+					// 查询项目列表
+					Method:  http.MethodGet,
+					Path:    "/startups",
+					Handler: startup.ListStartupsHandler(serverCtx),
+				},
+				{
+					// 更新项目
+					Method:  http.MethodPost,
+					Path:    "/update-startup",
+					Handler: startup.UpdateStartupsHandler(serverCtx),
+				},
+			}...,
+		),
+		rest.WithPrefix("/api/startup"),
+	)
+
 	server.AddRoutes(
 		rest.WithMiddlewares(
 			[]rest.Middleware{serverCtx.GuestAuthorizationMiddleware},
@@ -348,20 +388,6 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 		rest.WithPrefix("/api/share"),
 	)
 
-	server.AddRoutes(
-		rest.WithMiddlewares(
-			[]rest.Middleware{serverCtx.OIDCAuthMiddleware},
-			[]rest.Route{
-				{
-					// 查询项目列表
-					Method:  http.MethodGet,
-					Path:    "/startups",
-					Handler: startup.ListStartupsHandler(serverCtx),
-				},
-			}...,
-		),
-		rest.WithPrefix("/api/startup"),
-	)
 
 	server.AddRoutes(
 		rest.WithMiddlewares(
