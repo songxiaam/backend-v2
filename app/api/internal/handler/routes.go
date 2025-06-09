@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	authorizations "metaLand/app/api/internal/handler/authorizations"
+	bounty "metaLand/app/api/internal/handler/bounty"
 	chain "metaLand/app/api/internal/handler/chain"
 	comer "metaLand/app/api/internal/handler/comer"
 	comers "metaLand/app/api/internal/handler/comers"
@@ -91,6 +92,24 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 			}...,
 		),
 		rest.WithPrefix("/api/authorizations"),
+	)
+
+	server.AddRoutes(
+		[]rest.Route{
+			{
+				// 查询bounty列表
+				Method:  http.MethodPost,
+				Path:    "/bounties",
+				Handler: bounty.ListBountiesHandler(serverCtx),
+			},
+			{
+				// 查询bounty详情
+				Method:  http.MethodGet,
+				Path:    "/detail",
+				Handler: bounty.DetailBountyHandler(serverCtx),
+			},
+		},
+		rest.WithPrefix("/api/bounty"),
 	)
 
 	server.AddRoutes(
