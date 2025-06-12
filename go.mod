@@ -12,6 +12,7 @@ require (
 	github.com/minio/minio-go/v7 v7.0.92
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/robfig/cron/v3 v3.0.1
+	github.com/shopspring/decimal v1.4.0
 	github.com/spf13/cobra v1.9.1
 	github.com/spf13/viper v1.20.1
 	github.com/zeromicro/go-zero v1.8.3

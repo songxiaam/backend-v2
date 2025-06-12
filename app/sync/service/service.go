@@ -10,6 +10,7 @@ import (
 	"metaLand/app/sync/service/common"
 	"metaLand/app/sync/service/config"
 	"metaLand/app/sync/service/crontask"
+	"metaLand/app/sync/service/eth"
 	"metaLand/app/sync/service/startup"
 )
 
@@ -28,8 +29,10 @@ func New(ctx context.Context, cfg *config.Config) (*Service, error) {
 		DB:   cfg.Redis.DB,
 	})
 
+	ethClients := eth.NewEthClients()
+
 	service := &Service{
-		ctx: &common.ServiceContext{Ctx: ctx, Config: cfg, DB: db, Redis: redis},
+		ctx: &common.ServiceContext{Ctx: ctx, Config: cfg, DB: db, Redis: redis, Eth: ethClients},
 	}
 
 	return service, nil
@@ -37,6 +40,6 @@ func New(ctx context.Context, cfg *config.Config) (*Service, error) {
 
 func (s *Service) Start() {
 	startup.NewTaskStartup(s.ctx).Start()
-	crontask.NewTask().Start()
 	bounty.NewTaskBounty(s.ctx).Start()
+	crontask.NewTask(s.ctx).Start()
 }

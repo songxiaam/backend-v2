@@ -3,7 +3,7 @@ import "base.api"
 @server(
     group: bounty
     prefix: api/bounty
-    middleware: OIDCAuthMiddleware
+//    middleware: OIDCAuthMiddleware
 )
 
 service metaLand {

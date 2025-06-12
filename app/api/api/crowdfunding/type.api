@@ -1,0 +1,145 @@
+import "../base_type.api"
+import "../startup/base.api"
+
+type (
+    GetCrowdfundingRequest {
+        Page int `form:"page"`
+        Size int `form:"size"`
+        Keyword string `form:"keyword,optional"`
+    }
+    GetCrowdfundingResponse {
+        Page int `json:"page"`
+        Size int `json:"size"`
+        Total uint64 `json:"total"`
+        List []CrowdfundingRes `json:"list"`
+    }
+
+    UpdateCrowdfundingRequest {
+        CrowdfundingId uint64 `json:"crowdfunding_id"`
+        TxHash string `json:"tx_hash""`
+        SwapPercent string `json:"swap_percent,omitempty"`
+        BuyPrice string `json:"buy_price,omitempty"`
+        MaxBuyAmount string `json:"max_buy_amount,omitempty"`
+        //BuyTokenSymbol  string          `json:"buy_token_symbol,omitempty"`
+        //SellTokenSymbol string          `json:"sell_token_symbol,omitempty"`
+        MaxSellPercent string `json:"max_sell_percent,omitempty"`
+        EndTime string `json:"end_time,omitempty"`
+    }
+    UpdateCrowdfundingResponse {
+        SellInfo
+        BuyInfo
+    }
+
+    CreateCrowdfundingRequest {
+        Crowdfunding
+    }
+    CreateCrowdfundingResponse {
+
+    }
+
+    GetCrowdfundingInfoRequest {
+        CrowdfundingId uint64 `path:"crowdfunding_id"`
+    }
+    GetCrowdfundingInfoResponse {
+        CrowdfundingRes
+        Investor
+        Investors uint64 `json:"investors"`
+        Startup
+        Swaps []Swap `json:"swaps"`
+    }
+
+    GetCrowdfundingTransferLpSignRequest {
+        CrowdfundingId uint64 `path:"crowdfunding_id"`
+    }
+    GetCrowdfundingTransferLpSignResponse {
+        Data string `json:"data"`
+        Sign string `json:"sign"`
+    }
+
+    GetCrowdfundingSwapRecordsRequest {
+        CrowdfundingId uint64 `path:"crowdfunding_id"`
+    }
+    GetCrowdfundingSwapRecordsResponse {
+        List []Swap `json:"list"`
+    }
+)
+
+type (
+    CrowdfundingRes {
+        BaseInfo
+        Crowdfunding
+    }
+)
+
+type (
+    Crowdfunding {
+        ChainId uint64 `json:"chain_id"`
+        TxHash string `json:"tx_hash"`
+        CrowdfundingContract string `json:"crowdfunding_contract"`                                                     // 众筹合约地址
+        StartupID uint64 `json:"startup_id"`                                                                           // 初创公司ID
+        ComerID uint64 `json:"comer_id"`                                                                               // 创始人ID
+        RaiseGoal string `json:"raise_goal"`                                                                           // 募资目标
+        RaiseBalance string `json:"raise_balance"`                                                                     // 已募资金额
+        SellInfo
+        BuyInfo
+        TeamWallet string `json:"team_wallet"`                                                                         // 团队钱包地址
+        SwapPercent string `json:"swap_percent"`                                                                       // 兑换百分比
+        StartTime string `json:"start_time"`                                                                           // 开始时间
+        EndTime string `json:"end_time"`                                                                               // 结束时间
+        Poster string `json:"poster"`                                                                                  // 海报URL
+        Youtube string `json:"youtube"`                                                                                // YouTube链接
+        Detail string `json:"detail"`                                                                                  // 详情URL
+        Description string `json:"description"`                                                                        // 项目描述
+        Status int `json:"status"`                                                                                     // 状态: 0-待定 1-即将开始 2-进行中 3-已结束 4-已取消 5-失败
+    }
+
+    SellInfo {
+        SellTokenContract string `json:"sell_token_contract"`                    // 出售代币合约地址
+        SellTokenName string `json:"sell_token_name"`                            // 出售代币名称
+        SellTokenSymbol string `json:"sell_token_symbol"`                        // 出售代币符号
+        SellTokenDecimals int `json:"sell_token_decimals"`                       // 出售代币精度
+        SellTokenSupply string `json:"sell_token_supply"`   // 出售代币总量
+        SellTokenDeposit string `json:"sell_token_deposit"` // 出售代币质押量
+        SellTokenBalance string `json:"sell_token_balance"` // 出售代币余额
+        MaxSellPercent string `json:"max_sell_percent"`
+        SellTax string `json:"sell_tax"`
+                                                                                 //MaxSellPercent    float64         `gorm:"column:max_sell_percent" json:"max_sell_percent"`                         // 最大出售百分
+                                                                                 //SellTax           float64         `gorm:"column:sell_tax" json:"sell_tax"`                                         // 出售税率
+    }
+    BuyInfo {
+        BuyTokenContract string `json:"buy_token_contract"`                            // 购买代币合约地址
+        BuyTokenName string `json:"buy_token_name"`                                    // 购买代币名称
+        BuyTokenSymbol string `json:"buy_token_symbol"`                                // 购买代币符号
+        BuyTokenDecimals int `json:"buy_token_decimals"`                               // 购买代币精度
+        BuyTokenSupply string `json:"buy_token_supply"`           // 购买代币总量
+        BuyPrice string `json:"buy_price"`                        // 购买价格
+        MaxBuyAmount string `json:"max_buy_amount"`               // 最大购买量
+    }
+
+    Investor {
+        BaseInfo
+        ButTokenBalance string `json:"buy_token_balance"`
+        BuyTokenTotal string `json:"buy_token_total"`
+        ComerId uint64 `json:"comer_id"`
+        CrowdfundingId uint64 `json:"crowdfunding_id"`
+        SellTokenBalance string `json:"sell_token_balance"`
+        SellTokenTotal string `json:"sell_token_total"`
+    }
+
+    Swap {
+        BaseInfo
+        ChainId uint64 `json:"chain_id"`
+        TxHash string `json:"tx_hash"`
+        Timestamp string `json:"timestamp"`                                     // 交易时间戳
+        Status int `json:"status"`                                              // 状态:0-待处理 1-成功 2-失败
+        CrowdfundingID uint64 `json:"crowdfunding_id"`                          // 众筹项目ID
+        ComerID uint64 `json:"comer_id"`                                        // 用户ID
+        Access int `json:"access"`                                              // 操作类型:1-投资 2-赎回
+        BuyTokenSymbol string `json:"buy_token_symbol"`                         // 买入代币符号
+        BuyTokenAmount string `json:"buy_token_amount"`                         // 买入代币数量
+        SellTokenSymbol string `json:"sell_token_symbol"`                       // 卖出代币符号
+        SellTokenAmount string `json:"sell_token_amount"`                       // 卖出代币数量
+        Price string `json:"price"`                                             // 兑换价格
+    }
+)
+

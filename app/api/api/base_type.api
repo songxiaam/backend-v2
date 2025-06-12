@@ -1,0 +1,8 @@
+type (
+    BaseInfo {
+        ID uint64 `json:"id"`
+        CreatedAt string `json:"created_at"`
+        UpdatedAt string `json:"updated_at"`
+        IsDeleted bool `json:"is_deleted"`
+    }
+)

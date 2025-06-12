@@ -5,6 +5,7 @@ import (
 	"metaLand/app/api/internal/svc"
 	"metaLand/app/api/internal/types"
 	"metaLand/data/model/startup"
+	"time"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -55,11 +56,20 @@ func (l *CreateStartupsLogic) CreateStartups(req *types.CreateStartupsRequest) (
 		TokenName:            req.TokenName,
 		TokenSymbol:          req.TokenSymbol,
 		TotalSupply:          req.TotalSupply,
-		PresaleStart:         req.PresaleStart,
-		PresaleEnd:           req.PresaleEnd,
-		LaunchDate:           req.LaunchDate,
-		TabSequence:          req.TabSequence,
-		IsDeleted:            req.IsDeleted,
+		PresaleStart: func() *time.Time {
+			value, _ := time.Parse(time.DateTime, req.PresaleStart)
+			return &value
+		}(),
+		PresaleEnd: func() *time.Time {
+			value, _ := time.Parse(time.DateTime, req.PresaleEnd)
+			return &value
+		}(),
+		LaunchDate: func() *time.Time {
+			value, _ := time.Parse(time.DateTime, req.LaunchDate)
+			return &value
+		}(),
+		TabSequence: req.TabSequence,
+		IsDeleted:   req.IsDeleted,
 	}
 
 	// 调用数据层创建方法

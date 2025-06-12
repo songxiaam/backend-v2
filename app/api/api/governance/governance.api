@@ -1,0 +1,19 @@
+syntax = "v1"
+
+import "type.api"
+
+@server(
+    prefix: /api/governance
+    group: governance
+)
+service metaLand {
+    @doc "获取GovernanceSetting"
+    @handler GetGovernanceSetting
+    get /setting/:startup_id (GetGovernanceSettingRequest) returns (GetGovernanceSettingResponse)
+
+    @doc "创建GovernanceSetting"
+    @handler CreateGovernanceSetting
+    post /setting/:startup_id (CreateOrUpdateGovernanceSettingRequest) returns (CreateGovernanceSettingResponse)
+}
+
+

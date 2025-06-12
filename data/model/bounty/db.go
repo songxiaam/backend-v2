@@ -27,3 +27,11 @@ func GetBounty(db *gorm.DB, id uint64, bounty *Bounty) (err error) {
 		Preload("BountyPaymentTerms", "is_deleted = ?", "0").
 		First(bounty).Error
 }
+
+func UpdateBountyDepositContract(db *gorm.DB, bountyID uint64, depositContract string) error {
+	return db.Model(&Bounty{}).Where("id = ?", bountyID).Update("deposit_contract", depositContract).Error
+}
+
+func UpdateBountyDepositStatus(db *gorm.DB, bountyID uint64, status int) error {
+	return db.Model(&BountyDeposit{}).Where("bounty_id = ?", bountyID).Update("status", status).Error
+}

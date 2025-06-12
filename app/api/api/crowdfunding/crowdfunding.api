@@ -1,0 +1,35 @@
+syntax = "v1"
+
+import "type.api"
+
+@server(
+    prefix: /api/crowdfundings
+    group: crowdfunding
+)
+service metaLand {
+    @doc "获取Crowdfundings列表"
+    @handler GetCrowdfunding
+    get / (GetCrowdfundingRequest) returns (GetCrowdfundingResponse)
+
+    @doc "UpdateCrowdfunding"
+    @handler UpdateCrowdfunding
+    put / (UpdateCrowdfundingRequest) returns (UpdateCrowdfundingResponse)
+
+    @doc "CreateCrowdfunding"
+    @handler CreateCrowdfunding
+    post / (CreateCrowdfundingRequest) returns (CreateCrowdfundingResponse)
+
+    @doc "获取CrowdfundingInfo"
+    @handler GetCrowdfundingInfo
+    get /:crowdfunding_id (GetCrowdfundingInfoRequest) returns (GetCrowdfundingInfoResponse)
+
+    @doc "GetCrowdfundingTeansferLpSign"
+    @handler GetCrowdfundingTransferLpSign
+    get /:crowdfunding_id/sign (GetCrowdfundingTransferLpSignRequest) returns (GetCrowdfundingTransferLpSignResponse)
+
+    @doc "GetCrowdfundingSwapRecords"
+    @handler GetCrowdfundingSwapRecords
+    get /:crowdfunding_id/swap-records (GetCrowdfundingSwapRecordsRequest) returns (GetCrowdfundingSwapRecordsResponse)
+
+
+}

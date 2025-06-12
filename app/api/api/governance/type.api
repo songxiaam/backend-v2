@@ -1,0 +1,197 @@
+import "../startup/startup.api"
+import "../user/base.api"
+import "../base_type.api"
+
+type (
+    GetGovernanceSettingRequest {
+        StartupId uint64 `path:"startup_id"`
+    }
+    GetGovernanceSettingResponse {
+        GovernanceSetting
+        Strategies []GovernanceStrategy `json:"strategies"`
+        admins []GovernanceAdmin `json:"admins"`
+    }
+
+    CreateOrUpdateGovernanceSettingRequest {
+        StartupId uint64 `path:"startup_id"`
+        SettingRequest
+        Strategies []StrategyRequest `json:"strategies"`
+        Admins []AdminRequest `json:"admins"`
+    }
+
+    CreateGovernanceSettingResponse {
+        GovernanceSetting GovernanceSetting `json:"governanceSetting"`
+    }
+)
+
+type (
+    SettingRequest {
+        VoteSymbol string `json:"voteSymbol"`
+        AllowMember bool `json:"allowMember"`
+        ProposalThreshold string `json:"proposalThreshold"`
+        ProposalValidity string `json:"proposalValidity"`
+    }
+
+    StrategyRequest {
+        DictValue string `json:"dictValue" binding:"required"`
+        StrategyName string `json:"strategyName" binding:"required"`
+        ChainId uint64 `json:"chainId" binding:"required"`
+        VoteSymbol string `json:"voteSymbol"`
+        TokenContractAddress string `json:"tokenContractAddress" binding:"required"`
+        VoteDecimals int `json:"voteDecimals"`
+        TokenMinBalance string `json:"tokenMinBalance"`
+    }
+
+    AdminRequest {
+        WalletAddress string `json:"walletAddress"`
+    }
+)
+
+
+
+type (
+    GovernanceSetting {
+        BaseInfo
+        StartupId uint64 `json:"startup_id"`                    // 关联的初创公司ID
+        ComerId uint64 `json:"comer_id"`                        // 创建者用户ID
+        VoteSymbol string `json:"vote_symbol"`                  // 投票代币符号
+        AllowMember bool `json:"allow_member"`                  // 是否允许成员投票：0-否 1-是
+        ProposalThreshold string `json:"proposal_threshold"`    // 提案阈值
+        ProposalValidity string `json:"proposal_validity"`      // 提案有效期(天)
+    }
+
+    GovernanceStrategy {
+        BaseInfo
+        SettingId uint64 `json:"setting_id"`
+        DictValue string `json:"dict_value"`
+        StrategyName string `json:"strategy_name"`
+        ChainId uint64 `json:"chain_id"`
+        TokenContractAddress string `json:"token_contract_address"`
+        VoteSymbol string `json:"vote_symbol"`
+        VoteDecimals int `json:"vote_decimals"`
+        TokenMinBalance float64 `json:"token_min_balance"`
+    }
+
+    GovernanceAdmin {
+        BaseInfo
+        SettingId uint64 `json:"setting_id"`
+        Address string `json:"address"`
+    }
+)
+
+
+type (
+    GetProposalsRequest {
+        Page int `form:"page"`
+        Size int `form:"size"`
+        Keyword string `form:"keyword"`
+    }
+    GetProposalsResponse {
+        Page int `json:"page"`
+        Size int `json:"size"`
+        Total int64 `json:"total"`
+        List []GovernanceProposalInfo `json:"list"`
+    }
+
+    CreateProposalRequest {
+        GovernanceProposal
+        Choices []ProposalChoiceReq `json:"choices"`
+    }
+    CreateProposalResponse {
+    }
+
+    GetProposalInfoRequest {
+        ProposalId uint64 `path:"proposal_id"`
+    }
+    GetProposalInfoResponse {
+        BaseInfo
+        GovernanceProposal
+        Choices []ProposalChoiceRes `json:"choices"`
+        Comer ComerResponse `json:"comer"`
+        Startup StartupRes `json:"startup"`
+    }
+
+    DeleteProposalRequest {
+        ProposalId uint64 `path:"proposal_id"`
+    }
+    DeleteProposalResponse {
+    }
+
+    CreateVoteProposalRequest {
+        ProposalId uint64 `path:"proposal_id"`
+        VoterWalletAddress string          `json:"voter_wallet_address"`
+        ChoiceItemId       uint64          `json:"choice_item_id"`
+        ChoiceItemName     string          `json:"choice_item_name"`
+        Votes              string          `json:"votes"`
+        IpfsHash           string          `json:"ipfs_hash"`
+    }
+    CreateVoteProposalResponse {
+
+    }
+
+    GetProposalInvestRecordsRequest {
+        ProposalId uint64 `path:"proposal_id"`
+        Page int `form:"page"`
+        Size int `form:"size"`
+    }
+    GetProposalInvestRecordsResponse {
+        Page int `json:"page"`
+        Size int `json:"size"`
+        Total int64 `json:"total"`
+        List []GovernanceVote `json:"list"`
+    }
+)
+
+type (
+    GovernanceProposal {
+        StartupID uint64 `json:"startup_id" validate:"min=1"`                                      // 关联的初创公司ID
+        AuthorComerID uint64 `json:"author_comer_id" valitate:"min=1"`                             // 作者用户ID
+        AuthorWalletAddress string `json:"author_wallet_address"`                 // 作者钱包地址
+        ChainID uint64 `json:"chain_id"`                                          // 链ID
+        BlockNumber uint64 `json:"block_number"`                                  // 区块高度
+        ReleaseTimestamp string `json:"release_timestamp"`                        // 实际是 time.Time
+        IPFSHash string `json:"ipfs_hash"`                                        // IPFS哈希
+        Title string `json:"title"`                                               // 提案标题
+        Description string `json:"description"`                                   // 提案描述
+        DiscussionLink string `json:"discussion_link"`                            // 讨论链接
+        VoteSystem string `json:"vote_system"`                                    // 投票系统
+        StartTime string `json:"start_time"`                                   // 开始时间
+        EndTime string `json:"end_time"`                                       // 结束时间
+        Status int `json:"status"`                                                // 状态:0-待定 1-即将开始 2-活跃 3-已结束
+    }
+
+    ProposalChoiceReq {
+        ItemName string `json:"item_name"`                        // 选项名称
+        SeqNum int `json:"seq_num"`                               // 排序序号
+    }
+
+    ProposalChoiceRes {
+        ProposalID uint64 `json:"proposal_id"`                    // 关联的提案ID
+        ItemName string `json:"item_name"`                        // 选项名称
+        SeqNum int `json:"seq_num"`                               // 排序序号
+    }
+
+    GovernanceProposalInfo {
+        BaseInfo
+        GovernanceProposal
+        Comer ComerResponse `json:"comer"`
+        Startup StartupRes `json:"startup"`
+    }
+
+    StartupRes {
+        Startup
+        GovernanceSetting GovernanceSetting `json:"governance_setting"`
+    }
+
+    GovernanceVote {
+        BaseInfo
+        ProposalId uint64 `json:"proposal_id"`
+        VoterComerId uint64 `json:"voter_comer_id"`
+        VoterWalletAddress string `json:"voter_wallet_address"`
+        ChoiceItemId uint64 `json:"choice_item_id"`
+        ChoiceItemName string `json:"choice_item_name"`
+        Votes string `json:"votes"`
+        IPFSHash string `json:"ipfs_hash"`
+        Comer ComerResponse `json:"comer"`
+    }
+)

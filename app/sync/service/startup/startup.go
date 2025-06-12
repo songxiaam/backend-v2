@@ -20,7 +20,7 @@ import (
 
 type TaskStartup struct {
 	ctx  *common.ServiceContext
-	info map[uint64]*ContractInfo
+	info map[uint64]*ContractInfo // address:contract
 }
 
 func NewTaskStartup(ctx *common.ServiceContext) *TaskStartup {

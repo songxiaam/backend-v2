@@ -3,7 +3,7 @@ Host: 0.0.0.0
 Port: 9101
 
 DB:
-  DataSource: "root:mdw19921129#@tcp(127.0.0.1:3306)/metaland?charset=utf8mb4&parseTime=True&loc=Local"
+  DataSource: "root:123456@tcp(127.0.0.1:3309)/metaland?charset=utf8mb4&parseTime=True&loc=Local"
 
 JWT:
   Secret: "123123"
@@ -14,5 +14,5 @@ Minio:
 
 Redis:
   Host: "127.0.0.1:6379"
-  Password: ""
+  Password: "12345678"
   DB: 0  

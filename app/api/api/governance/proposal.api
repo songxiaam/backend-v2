@@ -1,0 +1,35 @@
+syntax = "v1"
+
+import "type.api"
+
+@server(
+    prefix: /api/proposals
+    group: proposals
+)
+service metaLand {
+    @doc "Get Proposals"
+    @handler GetProposals
+    get / (GetProposalsRequest) returns (GetProposalsResponse)
+
+    @doc "Create Proposal"
+    @handler CreateProposal
+    post / (CreateProposalRequest) returns (CreateProposalResponse)
+
+    @doc "Get Proposal Info"
+    @handler GetProposalInfo
+    get /:proposal_id (GetProposalInfoRequest) returns (GetProposalInfoResponse)
+
+    @doc "Delete Proposal"
+    @handler DeleteProposal
+    delete /:proposal_id (DeleteProposalRequest) returns (DeleteProposalResponse)
+
+    @doc "Vote Proposal"
+    @handler VoteProposal
+    post /:proposal_id/vote (CreateVoteProposalRequest) returns (CreateVoteProposalResponse)
+
+    @doc "Get Proposal Invest Records"
+    @handler GetProposalInvestRecords
+    get /:proposal_id/votes (GetProposalInvestRecordsRequest) returns (GetProposalInvestRecordsResponse)
+}
+
+

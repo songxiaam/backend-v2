@@ -15,6 +15,8 @@ import (
 
 //var configFile = flag.String("f", "etc/meta_land.yaml", "the config file")
 
+var myConfigPath = "etc/meta_land.yaml"
+
 func main() {
 
 	var configPath string
@@ -24,7 +26,8 @@ func main() {
 	case "windows":
 		configPath = "F:\\xxx\\backend-v2-deving\\app\\api\\etc\\meta_land.yaml" // Please replace this with the actual path under Window
 	case "darwin": // macOS
-		configPath = "/path/to/your/config/on/macos/meta_land.yaml" // Please replace this with the actual path under macOS
+		//configPath = "/path/to/your/config/on/macos/meta_land.yaml" // Please replace this with the actual path under macOS
+		configPath = myConfigPath
 	case "linux":
 		configPath = "/path/to/your/config/on/linux/meta_land.yaml" // Please replace this with the actual path under Linux
 	default:

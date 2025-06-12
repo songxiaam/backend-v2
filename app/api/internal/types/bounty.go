@@ -4,40 +4,40 @@
 package types
 
 type BountyInfoResponse struct {
-	ApplicantDeposit            int                   `json:"applicant_deposit"`
-	ApplicantMinDeposit         int                   `json:"applicant_min_deposit"`
+	ApplicantDeposit            int                   `json:"applicantDeposit"`
+	ApplicantMinDeposit         int                   `json:"applicantMinDeposit"`
 	Applicants                  []BountyApplicant     `json:"applicants"`
-	ApplyDeadline               string                `json:"apply_deadline"`
-	BountyApplicant             BountyApplicant       `json:"bounty_applicant"`
-	ChainId                     uint64                `json:"chain_id"`
-	ComerId                     uint64                `json:"comer_id"`
+	ApplyDeadline               string                `json:"applyDeadline"`
+	BountyApplicant             BountyApplicant       `json:"bountyApplicant"`
+	ChainId                     uint64                `json:"chainId"`
+	ComerId                     uint64                `json:"comerId"`
 	Contacts                    []BountyContact       `json:"contacts"`
-	ContractAddress             string                `json:"contract_address"`
-	CreatedAt                   string                `json:"created_at"`
-	DepositContractAddress      string                `json:"deposit_contract_address"`
-	DepositContractTokenDecimal int                   `json:"deposit_contract_token_decimal"`
-	DepositContractTokenSymbol  string                `json:"deposit_contract_token_symbol"`
-	DepositRecords              []BountyDepositRecord `json:"deposit_records"`
+	ContractAddress             string                `json:"contractAddress"`
+	CreatedAt                   string                `json:"createdAt"`
+	DepositContractAddress      string                `json:"depositContractAddress"`
+	DepositContractTokenDecimal int                   `json:"depositContractTokenDecimal"`
+	DepositContractTokenSymbol  string                `json:"depositContractTokenSymbol"`
+	DepositRecords              []BountyDepositRecord `json:"depositRecords"`
 	Description                 string                `json:"description"`
-	DiscussionLink              string                `json:"discussion_link"`
-	ExpiredTime                 string                `json:"expired_time"`
+	DiscussionLink              string                `json:"discussionLink"`
+	ExpiredTime                 string                `json:"expiredTime"`
 	Founder                     BountyComer           `json:"founder"`
-	FounderDeposit              int                   `json:"founder_deposit"`
+	FounderDeposit              int                   `json:"founderDeposit"`
 	Id                          uint64                `json:"id"`
-	IsLock                      int                   `json:"is_lock"`
-	MyDeposit                   int                   `json:"my_deposit"`
-	MyRole                      int                   `json:"my_role"`
-	MyStatus                    int                   `json:"my_status"`
-	PaymentMode                 int                   `json:"payment_mode"`
+	IsLock                      int                   `json:"isLock"`
+	MyDeposit                   int                   `json:"myDeposit"`
+	MyRole                      int                   `json:"myRole"`
+	MyStatus                    int                   `json:"myStatus"`
+	PaymentMode                 int                   `json:"paymentMode"`
 	Period                      BountyPaymentPeriod   `json:"period"`
-	PostUpdates                 []PostUpdate          `json:"post_updates"`
+	PostUpdates                 []PostUpdate          `json:"postUpdates"`
 	Skills                      []TagRelationResponse `json:"skills"`
 	Startup                     StartupCardResponse   `json:"startup"`
-	StartupId                   int                   `json:"startup_id"`
+	StartupId                   int                   `json:"startupId"`
 	Status                      int                   `json:"status"`
 	Terms                       []BountyPaymentTerms  `json:"terms"`
 	Title                       string                `json:"title"`
-	TxHash                      string                `json:"tx_hash"`
+	TxHash                      string                `json:"txHash"`
 }
 
 type DetailRequest struct {
@@ -47,7 +47,7 @@ type DetailRequest struct {
 type ListBountiesRequest struct {
 	Limit     int    `json:"limit"`
 	Offset    int    `json:"offset"`
-	IsDeleted bool   `json:"is_deleted,optional"`
+	IsDeleted bool   `json:"isDeleted,optional"`
 	Keyword   string `json:"keyword,optional"`
 	Mode      uint8  `json:"mode,optional"`
 }

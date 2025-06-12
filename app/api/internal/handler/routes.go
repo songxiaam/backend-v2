@@ -11,7 +11,10 @@ import (
 	chain "metaLand/app/api/internal/handler/chain"
 	comer "metaLand/app/api/internal/handler/comer"
 	comers "metaLand/app/api/internal/handler/comers"
+	crowdfunding "metaLand/app/api/internal/handler/crowdfunding"
+	governance "metaLand/app/api/internal/handler/governance"
 	languages "metaLand/app/api/internal/handler/languages"
+	proposals "metaLand/app/api/internal/handler/proposals"
 	share "metaLand/app/api/internal/handler/share"
 	startup "metaLand/app/api/internal/handler/startup"
 	tags "metaLand/app/api/internal/handler/tags"
@@ -21,46 +24,6 @@ import (
 )
 
 func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
-
-	server.AddRoutes(
-		rest.WithMiddlewares(
-			[]rest.Middleware{serverCtx.OIDCAuthMiddleware},
-			[]rest.Route{
-				{
-					// 判断项目是否存在
-					Method:  http.MethodGet,
-					Path:    "/check-exists",
-					Handler: startup.CheckStartupExistsHandler(serverCtx),
-				},
-				{
-					// 创建项目
-					Method:  http.MethodPost,
-					Path:    "/create-startup",
-					Handler: startup.CreateStartupsHandler(serverCtx),
-				},
-				{
-					// 获取项目详情
-					Method:  http.MethodGet,
-					Path:    "/getInfo",
-					Handler: startup.GetStartupInfoHandler(serverCtx),
-				},
-				{
-					// 查询项目列表
-					Method:  http.MethodGet,
-					Path:    "/startups",
-					Handler: startup.ListStartupsHandler(serverCtx),
-				},
-				{
-					// 更新项目
-					Method:  http.MethodPost,
-					Path:    "/update-startup",
-					Handler: startup.UpdateStartupsHandler(serverCtx),
-				},
-			}...,
-		),
-		rest.WithPrefix("/api/startup"),
-	)
-
 	server.AddRoutes(
 		rest.WithMiddlewares(
 			[]rest.Middleware{serverCtx.GuestAuthorizationMiddleware},
@@ -353,6 +316,66 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 	)
 
 	server.AddRoutes(
+		[]rest.Route{
+			{
+				// 获取Crowdfundings列表
+				Method:  http.MethodGet,
+				Path:    "/",
+				Handler: crowdfunding.GetCrowdfundingHandler(serverCtx),
+			},
+			{
+				// UpdateCrowdfunding
+				Method:  http.MethodPut,
+				Path:    "/",
+				Handler: crowdfunding.UpdateCrowdfundingHandler(serverCtx),
+			},
+			{
+				// CreateCrowdfunding
+				Method:  http.MethodPost,
+				Path:    "/",
+				Handler: crowdfunding.CreateCrowdfundingHandler(serverCtx),
+			},
+			{
+				// 获取CrowdfundingInfo
+				Method:  http.MethodGet,
+				Path:    "/:crowdfunding_id",
+				Handler: crowdfunding.GetCrowdfundingInfoHandler(serverCtx),
+			},
+			{
+				// GetCrowdfundingTeansferLpSign
+				Method:  http.MethodGet,
+				Path:    "/:crowdfunding_id/sign",
+				Handler: crowdfunding.GetCrowdfundingTransferLpSignHandler(serverCtx),
+			},
+			{
+				// GetCrowdfundingSwapRecords
+				Method:  http.MethodGet,
+				Path:    "/:crowdfunding_id/swap-records",
+				Handler: crowdfunding.GetCrowdfundingSwapRecordsHandler(serverCtx),
+			},
+		},
+		rest.WithPrefix("/api/crowdfundings"),
+	)
+
+	server.AddRoutes(
+		[]rest.Route{
+			{
+				// 获取GovernanceSetting
+				Method:  http.MethodGet,
+				Path:    "/setting/:startup_id",
+				Handler: governance.GetGovernanceSettingHandler(serverCtx),
+			},
+			{
+				// 创建GovernanceSetting
+				Method:  http.MethodPost,
+				Path:    "/setting/:startup_id",
+				Handler: governance.CreateGovernanceSettingHandler(serverCtx),
+			},
+		},
+		rest.WithPrefix("/api/governance"),
+	)
+
+	server.AddRoutes(
 		rest.WithMiddlewares(
 			[]rest.Middleware{serverCtx.OIDCAuthMiddleware},
 			[]rest.Route{
@@ -365,6 +388,48 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 			}...,
 		),
 		rest.WithPrefix("/api/languages"),
+	)
+
+	server.AddRoutes(
+		[]rest.Route{
+			{
+				// Get Proposals
+				Method:  http.MethodGet,
+				Path:    "/",
+				Handler: proposals.GetProposalsHandler(serverCtx),
+			},
+			{
+				// Create Proposal
+				Method:  http.MethodPost,
+				Path:    "/",
+				Handler: proposals.CreateProposalHandler(serverCtx),
+			},
+			{
+				// Get Proposal Info
+				Method:  http.MethodGet,
+				Path:    "/:proposal_id",
+				Handler: proposals.GetProposalInfoHandler(serverCtx),
+			},
+			{
+				// Delete Proposal
+				Method:  http.MethodDelete,
+				Path:    "/:proposal_id",
+				Handler: proposals.DeleteProposalHandler(serverCtx),
+			},
+			{
+				// Vote Proposal
+				Method:  http.MethodPost,
+				Path:    "/:proposal_id/vote",
+				Handler: proposals.VoteProposalHandler(serverCtx),
+			},
+			{
+				// Get Proposal Invest Records
+				Method:  http.MethodGet,
+				Path:    "/:proposal_id/votes",
+				Handler: proposals.GetProposalInvestRecordsHandler(serverCtx),
+			},
+		},
+		rest.WithPrefix("/api/proposals"),
 	)
 
 	server.AddRoutes(
@@ -388,6 +453,44 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 		rest.WithPrefix("/api/share"),
 	)
 
+	server.AddRoutes(
+		rest.WithMiddlewares(
+			[]rest.Middleware{serverCtx.OIDCAuthMiddleware},
+			[]rest.Route{
+				{
+					// 判断项目是否存在
+					Method:  http.MethodGet,
+					Path:    "/check-exists",
+					Handler: startup.CheckStartupExistsHandler(serverCtx),
+				},
+				{
+					// 创建项目
+					Method:  http.MethodPost,
+					Path:    "/create-startup",
+					Handler: startup.CreateStartupsHandler(serverCtx),
+				},
+				{
+					// 获取项目详情
+					Method:  http.MethodGet,
+					Path:    "/getInfo",
+					Handler: startup.GetStartupInfoHandler(serverCtx),
+				},
+				{
+					// 查询项目列表
+					Method:  http.MethodGet,
+					Path:    "/startups",
+					Handler: startup.ListStartupsHandler(serverCtx),
+				},
+				{
+					// 更新项目
+					Method:  http.MethodPost,
+					Path:    "/update-startup",
+					Handler: startup.UpdateStartupsHandler(serverCtx),
+				},
+			}...,
+		),
+		rest.WithPrefix("/api/startup"),
+	)
 
 	server.AddRoutes(
 		rest.WithMiddlewares(
